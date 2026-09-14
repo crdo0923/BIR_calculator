@@ -11,6 +11,10 @@ import {
   computeWithholdingTaxMonthly,
   computeEmployeePayroll,
 } from "../src/lib/tax-engine.ts";
+import {
+  generateFreelanceSummary,
+  generateEmployeeSummary,
+} from "../src/lib/export-summary.ts";
 
 test("Graduated Income Tax Brackets (TRAIN Law RA 10963)", () => {
   // 0 - 250,000: 0%
@@ -302,5 +306,41 @@ test("Audit: Form Downloads & Offline Package Assets Integrity", () => {
     const stat = fs.statSync(filePath);
     assert.ok(stat.size > 1000, `Form file ${file} must be non-empty (size: ${stat.size} bytes)`);
   }
+});
+
+test("Export Summary: Freelance & Employee summary content generation", () => {
+  const freelanceResult = computeAll({
+    grossInput: 1000000,
+    period: "annual",
+    isMixed: false,
+    salaryAnnual: 0,
+    cwtMode: "10%",
+  });
+
+  const enSummary = generateFreelanceSummary(freelanceResult, "annual", "en");
+  assert.ok(enSummary.includes("BIR CO-PILOT PHILIPPINES"));
+  assert.ok(enSummary.includes("8% OPTIONAL FLAT TAX REGIME"));
+  assert.ok(enSummary.includes("100% locally in your client web browser"));
+
+  const filSummary = generateFreelanceSummary(freelanceResult, "quarterly", "fil");
+  assert.ok(filSummary.includes("BIR CO-PILOT PHILIPPINES"));
+  assert.ok(filSummary.includes("Quarterly Cutoff"));
+
+  const empResult = computeEmployeePayroll({
+    monthlyBasic: 50000,
+    nonTaxableAllowances: 2000,
+    taxableAllowances: 1000,
+    includeDeMinimis: true,
+  });
+
+  const empEnSummary = generateEmployeeSummary(empResult, "en");
+  assert.ok(empEnSummary.includes("EMPLOYEE SALARY & PAYSLIP BREAKDOWN"));
+  assert.ok(empEnSummary.includes("PhilHealth (5% / 2):"));
+  assert.ok(empEnSummary.includes("Pag-IBIG Fund:"));
+  assert.ok(empEnSummary.includes("MONTHLY TAKE-HOME:"));
+
+  const empFilSummary = generateEmployeeSummary(empResult, "fil");
+  assert.ok(empFilSummary.includes("BIR CO-PILOT PHILIPPINES"));
+  assert.ok(empFilSummary.includes("Monthly Basic Salary:"));
 });
 

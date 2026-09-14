@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { computeEmployeePayroll, formatPHP } from "@/lib/tax-engine";
+import { computeEmployeePayroll, formatPHP, EmployeePayrollResult } from "@/lib/tax-engine";
 import { Language, translations } from "@/lib/translations";
 import {
   Building2,
@@ -15,6 +15,7 @@ import {
   ChevronUp,
   Info,
   Scale,
+  Download,
 } from "lucide-react";
 
 const SALARY_PRESETS = [
@@ -30,9 +31,14 @@ const SALARY_PRESETS = [
 interface EmployeeSalaryCalculatorProps {
   lang: Language;
   onOpenGlossary?: () => void;
+  onOpenDownload?: (result: EmployeePayrollResult) => void;
 }
 
-export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalaryCalculatorProps) {
+export function EmployeeSalaryCalculator({
+  lang,
+  onOpenGlossary,
+  onOpenDownload,
+}: EmployeeSalaryCalculatorProps) {
   const t = translations[lang];
   const [salaryDigits, setSalaryDigits] = useState("35000");
   const [viewFrequency, setViewFrequency] = useState<"monthly" | "semi-monthly" | "annual">("monthly");
@@ -326,7 +332,19 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
                 <Wallet className="w-3.5 h-3.5" />
                 <span>{t.netTakeHomeLabel.replace("{freq}", frequencyLabel)}</span>
               </span>
-              <span className="text-[11px] text-zinc-400 font-medium">TRAIN Law 2026</span>
+              <div className="flex items-center gap-2">
+                {onOpenDownload && (
+                  <button
+                    type="button"
+                    onClick={() => onOpenDownload(result)}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white border border-zinc-700 transition cursor-pointer shadow-2xs"
+                  >
+                    <Download className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>{lang === "en" ? "Download Payslip" : "I-download ang Payslip"}</span>
+                  </button>
+                )}
+                <span className="text-[11px] text-zinc-400 font-medium hidden sm:inline">TRAIN Law 2026</span>
+              </div>
             </div>
 
             <div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import { computeAll, CWTMode } from "@/lib/tax-engine";
+import { computeAll, CWTMode, EmployeePayrollResult } from "@/lib/tax-engine";
 import { Language, translations } from "@/lib/translations";
 import { Header } from "@/components/Header";
 import { IncomeConfig } from "@/components/IncomeConfig";
@@ -17,6 +17,8 @@ import { RegimeExplainerFAQ } from "@/components/RegimeExplainerFAQ";
 import { TaxGlossaryModal } from "@/components/TaxGlossaryModal";
 import { CookieConsent } from "@/components/CookieConsent";
 import { SourceCodePromptModal } from "@/components/SourceCodePromptModal";
+import { DownloadConfirmationModal } from "@/components/DownloadConfirmationModal";
+import { generateFreelanceSummary, generateEmployeeSummary, downloadSummaryFile } from "@/lib/export-summary";
 import Link from "next/link";
 import { Briefcase, Building2, ShieldAlert, Scale, Cookie, Download, ExternalLink } from "lucide-react";
 
@@ -79,6 +81,11 @@ export default function Home() {
   const [isGlossaryModalOpen, setIsGlossaryModalOpen] = useState(false);
   const [isCookieSettingsOpen, setIsCookieSettingsOpen] = useState(false);
   const [isSourceModalOpen, setIsSourceModalOpen] = useState(false);
+  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
+  const [downloadTarget, setDownloadTarget] = useState<{
+    type: "freelance" | "employee";
+    employeeResult?: EmployeePayrollResult;
+  }>({ type: "freelance" });
 
   // Parse values safely
   const gross = Number(grossDigits || 0);
@@ -101,6 +108,16 @@ export default function Home() {
       }),
     [gross, period, isMixed, salaryAnnual, expenses, hasExpenses, cwtMode, cwtCustomAmount]
   );
+
+  const handleConfirmDownload = () => {
+    if (downloadTarget.type === "employee" && downloadTarget.employeeResult) {
+      const content = generateEmployeeSummary(downloadTarget.employeeResult, lang);
+      downloadSummaryFile(`BIR_CoPilot_Payslip_${new Date().getFullYear()}.txt`, content);
+    } else {
+      const content = generateFreelanceSummary(result, period, lang);
+      downloadSummaryFile(`BIR_CoPilot_Tax_Summary_${new Date().getFullYear()}.txt`, content);
+    }
+  };
 
   const isOver3M = result.grossAnnual > 3_000_000;
   const winnerIs8 = result.winner === "8%";
@@ -251,6 +268,10 @@ export default function Home() {
                   isOver3M={isOver3M}
                   onOpenEBIR={() => setIsEBIRModalOpen(true)}
                   onOpenPaymentGuide={() => setIsPaymentModalOpen(true)}
+                  onOpenDownload={() => {
+                    setDownloadTarget({ type: "freelance" });
+                    setIsDownloadModalOpen(true);
+                  }}
                   lang={lang}
                 />
               </div>
@@ -299,6 +320,10 @@ export default function Home() {
           <EmployeeSalaryCalculator
             lang={lang}
             onOpenGlossary={() => setIsGlossaryModalOpen(true)}
+            onOpenDownload={(empRes) => {
+              setDownloadTarget({ type: "employee", employeeResult: empRes });
+              setIsDownloadModalOpen(true);
+            }}
           />
         )}
 
@@ -376,6 +401,23 @@ export default function Home() {
       <SourceCodePromptModal
         isOpen={isSourceModalOpen}
         onClose={() => setIsSourceModalOpen(false)}
+        lang={lang}
+      />
+
+      <DownloadConfirmationModal
+        isOpen={isDownloadModalOpen}
+        onClose={() => setIsDownloadModalOpen(false)}
+        onConfirm={handleConfirmDownload}
+        title={
+          downloadTarget.type === "employee"
+            ? (lang === "en" ? "Download Payslip Breakdown" : "I-download ang Payslip")
+            : (lang === "en" ? "Download Tax Summary" : "I-download ang Buod ng Buwis")
+        }
+        summaryType={
+          downloadTarget.type === "employee"
+            ? (lang === "en" ? "Employee Salary & Payslip Summary" : "Buod ng Payslip at Sweldo")
+            : (lang === "en" ? "Tax Estimation Summary" : "Buod ng Buwis ng Negosyo/Freelancer")
+        }
         lang={lang}
       />
 

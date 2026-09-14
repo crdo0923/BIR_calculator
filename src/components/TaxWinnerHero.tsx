@@ -3,13 +3,14 @@
 import React from "react";
 import { ComputeResult, formatPHP } from "@/lib/tax-engine";
 import { Language, translations } from "@/lib/translations";
-import { ArrowRight, CreditCard, FileSpreadsheet, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CreditCard, FileSpreadsheet, CheckCircle2, Download } from "lucide-react";
 
 interface TaxWinnerHeroProps {
   result: ComputeResult;
   isOver3M: boolean;
   onOpenEBIR: () => void;
   onOpenPaymentGuide: () => void;
+  onOpenDownload?: () => void;
   lang: Language;
 }
 
@@ -18,6 +19,7 @@ export function TaxWinnerHero({
   isOver3M,
   onOpenEBIR,
   onOpenPaymentGuide,
+  onOpenDownload,
   lang,
 }: TaxWinnerHeroProps) {
   const t = translations[lang];
@@ -112,25 +114,35 @@ export function TaxWinnerHero({
       </div>
 
       {/* Action Buttons */}
-      <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+      <div className="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
         <button
           type="button"
           onClick={onOpenEBIR}
-          className="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+          className="w-full py-2.5 px-3 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
         >
           <FileSpreadsheet className="w-4 h-4" />
           <span>{t.tier1ViewGuideBtn}</span>
-          <ArrowRight className="w-3.5 h-3.5 ml-auto" />
         </button>
 
         <button
           type="button"
           onClick={onOpenPaymentGuide}
-          className="w-full py-2.5 px-4 bg-zinc-800 hover:bg-zinc-700 active:bg-zinc-850 text-zinc-200 hover:text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-2 border border-zinc-700 cursor-pointer"
+          className="w-full py-2.5 px-3 bg-zinc-800 hover:bg-zinc-700 active:bg-zinc-850 text-zinc-200 hover:text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-1.5 border border-zinc-700 cursor-pointer"
         >
           <CreditCard className="w-4 h-4 text-emerald-400" />
           <span>{t.tier1HowToPayBtn}</span>
         </button>
+
+        {onOpenDownload && (
+          <button
+            type="button"
+            onClick={onOpenDownload}
+            className="w-full py-2.5 px-3 bg-zinc-800 hover:bg-zinc-700 active:bg-zinc-850 text-zinc-200 hover:text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-1.5 border border-zinc-700 cursor-pointer"
+          >
+            <Download className="w-4 h-4 text-emerald-400" />
+            <span>{lang === "en" ? "Download Result" : "I-download ang Buod"}</span>
+          </button>
+        )}
       </div>
 
       {/* Trust & Estimation Note */}
