@@ -169,12 +169,11 @@ export function Header({
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleSourceClick}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200/80 dark:border-zinc-700 transition cursor-pointer"
-              title="View source code on GitHub"
-              aria-label="View source code on GitHub"
+              className="p-1.5 rounded-lg text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200/80 dark:border-zinc-700 transition cursor-pointer"
+              title="GitHub"
+              aria-label="GitHub"
             >
-              <GithubIcon className="w-3.5 h-3.5" />
-              <span className="hidden lg:inline">{t.sourceCodeLabel}</span>
+              <GithubIcon className="w-4 h-4" />
             </a>
           </div>
 
