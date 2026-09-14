@@ -81,16 +81,16 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
         {/* Left Column (5 cols): Salary Configuration */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-white border border-zinc-200/90 rounded-3xl p-5 sm:p-6 shadow-xs space-y-6">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800 rounded-3xl p-5 sm:p-6 shadow-xs space-y-6 transition-colors duration-200">
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
+            <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-xl bg-sky-50 border border-sky-200/50 flex items-center justify-center text-sky-700">
+                <div className="w-7 h-7 rounded-xl bg-sky-50 dark:bg-sky-950/60 border border-sky-200/50 dark:border-sky-800/60 flex items-center justify-center text-sky-700 dark:text-sky-300">
                   <Building2 className="w-4 h-4" />
                 </div>
-                <h2 className="text-sm font-bold uppercase tracking-wider text-zinc-700">{t.empMonthlyCompTitle}</h2>
+                <h2 className="text-sm font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-200">{t.empMonthlyCompTitle}</h2>
               </div>
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-zinc-100 text-zinc-600 border border-zinc-200">
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 {t.empCategoryBadge}
               </span>
             </div>
@@ -98,15 +98,15 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
             {/* Basic Salary Input */}
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="basic-salary-input" className="text-xs font-bold text-zinc-800 flex items-center gap-1.5">
+                <label htmlFor="basic-salary-input" className="text-xs font-bold text-zinc-800 dark:text-zinc-200 flex items-center gap-1.5">
                   {t.empBasicSalaryLabel}
-                  <span className="text-sky-600 font-medium text-[11px]">{t.empBasicSalarySub}</span>
+                  <span className="text-sky-600 dark:text-sky-400 font-medium text-[11px]">{t.empBasicSalarySub}</span>
                 </label>
-                <span className="text-[11px] text-zinc-400 font-medium">{t.freqMonthly}</span>
+                <span className="text-[11px] text-zinc-400 dark:text-zinc-500 font-medium">{t.freqMonthly}</span>
               </div>
 
-              <div className="mt-2 relative flex items-center border-2 border-zinc-200 focus-within:border-sky-600 focus-within:ring-4 focus-within:ring-sky-500/15 rounded-2xl px-3.5 py-3 bg-white transition shadow-2xs">
-                <div className="w-8 h-8 rounded-xl bg-sky-50 text-sky-700 font-bold flex items-center justify-center mr-3 border border-sky-200/60 shrink-0 select-none">
+              <div className="mt-2 relative flex items-center border-2 border-zinc-200 dark:border-zinc-700 focus-within:border-sky-600 dark:focus-within:border-sky-500 focus-within:ring-4 focus-within:ring-sky-500/15 rounded-2xl px-3.5 py-3 bg-white dark:bg-zinc-950 transition shadow-2xs">
+                <div className="w-8 h-8 rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 font-bold flex items-center justify-center mr-3 border border-sky-200/60 dark:border-sky-800/60 shrink-0 select-none">
                   <span className="font-serif text-base leading-none font-black">₱</span>
                 </div>
                 <input
@@ -116,13 +116,13 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
                   value={displaySalary}
                   onChange={(e) => handleNumericInput(e.target.value, setSalaryDigits)}
                   placeholder="35,000"
-                  className="w-full text-xl sm:text-2xl font-extrabold tracking-tight text-zinc-900 outline-none bg-transparent tabular-nums placeholder:text-zinc-300"
+                  className="w-full text-xl sm:text-2xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 outline-none bg-transparent tabular-nums placeholder:text-zinc-300 dark:placeholder:text-zinc-600"
                 />
                 {salaryDigits && (
                   <button
                     type="button"
                     onClick={() => setSalaryDigits("")}
-                    className="p-1.5 text-zinc-400 hover:text-zinc-600 rounded-lg transition cursor-pointer shrink-0"
+                    className="p-1.5 text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300 rounded-lg transition cursor-pointer shrink-0"
                     title="Clear input"
                   >
                     <X className="w-4 h-4" />
@@ -130,16 +130,16 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
                 )}
               </div>
 
-              <div className="mt-1.5 flex items-center justify-between text-[11px] text-zinc-500">
+              <div className="mt-1.5 flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400">
                 <span>{t.empAnnualBasic.replace("{amount}", formatPHP(result.annualBasic))}</span>
                 {monthlyBasic <= 20833.33 && monthlyBasic > 0 && (
-                  <span className="text-emerald-600 font-semibold">{t.empZeroTaxNotice}</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{t.empZeroTaxNotice}</span>
                 )}
               </div>
 
               {/* Quick Monthly Presets */}
               <div className="mt-3">
-                <div className="text-[11px] font-medium text-zinc-400 mb-1.5">{t.empBracketsLabel}</div>
+                <div className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500 mb-1.5">{t.empBracketsLabel}</div>
                 <div className="flex flex-wrap gap-1.5">
                   {SALARY_PRESETS.map((p) => {
                     const isSelected = Number(salaryDigits) === p.value;
@@ -150,8 +150,8 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
                         onClick={() => setSalaryDigits(String(p.value))}
                         className={`text-xs px-3 py-1.5 rounded-full font-semibold transition border cursor-pointer ${
                           isSelected
-                            ? "bg-zinc-900 text-white border-zinc-900 shadow-xs"
-                            : "bg-zinc-50 text-zinc-600 border-zinc-200/90 hover:bg-zinc-100 hover:text-zinc-900"
+                            ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 border-zinc-900 dark:border-zinc-100 shadow-xs"
+                            : "bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 border-zinc-200/90 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 hover:text-zinc-900 dark:hover:text-zinc-100"
                         }`}
                       >
                         {p.label}
@@ -164,15 +164,15 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
 
             {/* View Frequency Selector */}
             <div>
-              <label className="block text-xs font-bold text-zinc-800 mb-1.5">{t.displayFreqLabel}</label>
-              <div className="grid grid-cols-3 p-1 bg-zinc-100 rounded-xl gap-1 border border-zinc-200/60">
+              <label className="block text-xs font-bold text-zinc-800 dark:text-zinc-200 mb-1.5">{t.displayFreqLabel}</label>
+              <div className="grid grid-cols-3 p-1 bg-zinc-100 dark:bg-zinc-800/80 rounded-xl gap-1 border border-zinc-200/60 dark:border-zinc-700">
                 <button
                   type="button"
                   onClick={() => setViewFrequency("monthly")}
                   className={`py-2 px-2 text-xs font-bold rounded-lg transition text-center cursor-pointer ${
                     viewFrequency === "monthly"
-                      ? "bg-white text-zinc-900 shadow-xs"
-                      : "text-zinc-500 hover:text-zinc-800"
+                      ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs"
+                      : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200"
                   }`}
                 >
                   {t.freqMonthly}
@@ -182,8 +182,8 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
                   onClick={() => setViewFrequency("semi-monthly")}
                   className={`py-2 px-2 text-xs font-bold rounded-lg transition text-center cursor-pointer ${
                     viewFrequency === "semi-monthly"
-                      ? "bg-white text-zinc-900 shadow-xs"
-                      : "text-zinc-500 hover:text-zinc-800"
+                      ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs"
+                      : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200"
                   }`}
                 >
                   {t.freqSemiMonthly}
@@ -193,8 +193,8 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
                   onClick={() => setViewFrequency("annual")}
                   className={`py-2 px-2 text-xs font-bold rounded-lg transition text-center cursor-pointer ${
                     viewFrequency === "annual"
-                      ? "bg-white text-zinc-900 shadow-xs"
-                      : "text-zinc-500 hover:text-zinc-800"
+                      ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs"
+                      : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200"
                   }`}
                 >
                   {t.freqAnnual}
@@ -203,19 +203,19 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
             </div>
 
             {/* Optional Allowances Dropdown */}
-            <div className="border-t border-zinc-100 pt-4">
+            <div className="border-t border-zinc-100 dark:border-zinc-800 pt-4">
               {!showAllowances ? (
                 <button
                   type="button"
                   onClick={() => setShowAllowances(true)}
-                  className="w-full py-2.5 px-3 border border-dashed border-zinc-300 rounded-xl text-xs font-semibold text-zinc-600 hover:text-zinc-900 hover:border-zinc-400 bg-zinc-50/50 hover:bg-zinc-50 transition flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="w-full py-2.5 px-3 border border-dashed border-zinc-300 dark:border-zinc-700 rounded-xl text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:border-zinc-400 dark:hover:border-zinc-600 bg-zinc-50/50 dark:bg-zinc-800/40 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   {t.addAllowancesBtn}
                 </button>
               ) : (
-                <div className="space-y-3 p-3.5 bg-zinc-50 border border-zinc-200 rounded-xl">
+                <div className="space-y-3 p-3.5 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 rounded-xl">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-zinc-800">{t.allowancesTitle}</span>
+                    <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200">{t.allowancesTitle}</span>
                     <button
                       type="button"
                       onClick={() => {
@@ -223,71 +223,71 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
                         setNonTaxableDigits("");
                         setTaxableAllowancesDigits("");
                       }}
-                      className="text-[11px] font-medium text-rose-600 hover:text-rose-700 underline cursor-pointer"
+                      className="text-[11px] font-medium text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 underline cursor-pointer"
                     >
                       {t.removeBtn}
                     </button>
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-semibold text-zinc-600 block">
+                    <label className="text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 block">
                       {t.nonTaxableAllowancesLabel}
                     </label>
-                    <div className="mt-1 flex items-center border border-zinc-300 rounded-lg px-3 py-1.5 bg-white">
-                      <span className="text-zinc-400 font-serif text-sm mr-1.5">₱</span>
+                    <div className="mt-1 flex items-center border border-zinc-300 dark:border-zinc-700 rounded-lg px-3 py-1.5 bg-white dark:bg-zinc-900">
+                      <span className="text-zinc-400 dark:text-zinc-500 font-serif text-sm mr-1.5">₱</span>
                       <input
                         type="text"
                         inputMode="numeric"
                         value={displayNonTaxable}
                         onChange={(e) => handleNumericInput(e.target.value, setNonTaxableDigits)}
                         placeholder="e.g. 2,000"
-                        className="w-full text-xs font-bold text-zinc-900 outline-none bg-transparent tabular-nums"
+                        className="w-full text-xs font-bold text-zinc-900 dark:text-zinc-100 outline-none bg-transparent tabular-nums"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-semibold text-zinc-600 block">
+                    <label className="text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 block">
                       {t.taxableAllowancesLabel}
                     </label>
-                    <div className="mt-1 flex items-center border border-zinc-300 rounded-lg px-3 py-1.5 bg-white">
-                      <span className="text-zinc-400 font-serif text-sm mr-1.5">₱</span>
+                    <div className="mt-1 flex items-center border border-zinc-300 dark:border-zinc-700 rounded-lg px-3 py-1.5 bg-white dark:bg-zinc-900">
+                      <span className="text-zinc-400 dark:text-zinc-500 font-serif text-sm mr-1.5">₱</span>
                       <input
                         type="text"
                         inputMode="numeric"
                         value={displayTaxableAllowances}
                         onChange={(e) => handleNumericInput(e.target.value, setTaxableAllowancesDigits)}
                         placeholder="e.g. 3,000"
-                        className="w-full text-xs font-bold text-zinc-900 outline-none bg-transparent tabular-nums"
+                        className="w-full text-xs font-bold text-zinc-900 dark:text-zinc-100 outline-none bg-transparent tabular-nums"
                       />
                     </div>
                   </div>
 
                   {/* De Minimis Tax-Free Guide Accordion */}
-                  <div className="pt-2 border-t border-zinc-200/70">
+                  <div className="pt-2 border-t border-zinc-200/70 dark:border-zinc-800">
                     <button
                       type="button"
                       onClick={() => setShowDeMinimis(!showDeMinimis)}
-                      className="w-full flex items-center justify-between text-[11px] font-semibold text-sky-800 hover:text-sky-950 py-1 transition cursor-pointer"
+                      className="w-full flex items-center justify-between text-[11px] font-semibold text-sky-800 dark:text-sky-400 hover:text-sky-950 dark:hover:text-sky-300 py-1 transition cursor-pointer"
                     >
                       <span className="flex items-center gap-1.5">
-                        <Info className="w-3.5 h-3.5 text-sky-600" />
+                        <Info className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                         <span>{t.deMinimisGuideTitle}</span>
                       </span>
-                      <span className="text-xs text-zinc-400">
+                      <span className="text-xs text-zinc-400 dark:text-zinc-500">
                         {showDeMinimis ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                       </span>
                     </button>
 
                     {showDeMinimis && (
-                      <div className="mt-2 p-2.5 bg-white border border-sky-200/70 rounded-lg text-[10.5px] text-zinc-600 space-y-1 leading-relaxed">
-                        <div className="font-semibold text-zinc-800 flex items-center justify-between mb-1">
+                      <div className="mt-2 p-2.5 bg-white dark:bg-zinc-900 border border-sky-200/70 dark:border-sky-800/70 rounded-lg text-[10.5px] text-zinc-600 dark:text-zinc-400 space-y-1 leading-relaxed">
+                        <div className="font-semibold text-zinc-800 dark:text-zinc-200 flex items-center justify-between mb-1">
                           <span>{t.deMinimisGuideDesc}</span>
-                          <span className="text-[9.5px] font-bold bg-sky-100 text-sky-800 px-1.5 py-0.2 rounded">
+                          <span className="text-[9.5px] font-bold bg-sky-100 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 px-1.5 py-0.2 rounded">
                             {t.deMinimisGuideBadge}
                           </span>
                         </div>
-                        <ul className="list-disc list-inside space-y-0.5 text-zinc-600">
+                        <ul className="list-disc list-inside space-y-0.5 text-zinc-600 dark:text-zinc-400">
                           <li>{t.deMinimisRice}</li>
                           <li>{t.deMinimisUniform}</li>
                           <li>{t.deMinimisLaundry}</li>
@@ -303,13 +303,13 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
           </div>
 
           {/* Form 2316 & Substituted Filing Explainer Card */}
-          <div className="bg-white border border-zinc-200/90 rounded-2xl p-5 shadow-xs space-y-3 text-xs text-zinc-600">
-            <div className="flex items-center gap-2 font-bold text-zinc-900">
-              <FileText className="w-4 h-4 text-sky-600" />
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800 rounded-2xl p-5 shadow-xs space-y-3 text-xs text-zinc-600 dark:text-zinc-400">
+            <div className="flex items-center gap-2 font-bold text-zinc-900 dark:text-zinc-100">
+              <FileText className="w-4 h-4 text-sky-600 dark:text-sky-400" />
               <span>{t.form2316Title}</span>
             </div>
             <p className="leading-relaxed">{t.form2316Desc}</p>
-            <div className="p-2.5 bg-sky-50/70 border border-sky-200/60 rounded-xl text-sky-950 text-[11.5px] leading-relaxed">
+            <div className="p-2.5 bg-sky-50/70 dark:bg-sky-950/50 border border-sky-200/60 dark:border-sky-800/60 rounded-xl text-sky-950 dark:text-sky-200 text-[11.5px] leading-relaxed">
               {t.substitutedFilingNotice}
             </div>
           </div>
@@ -383,114 +383,114 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
           </div>
 
           {/* Itemized Payslip Table */}
-          <div className="bg-white border border-zinc-200/90 rounded-3xl p-5 sm:p-7 shadow-xs space-y-4">
-            <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800 rounded-3xl p-5 sm:p-7 shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-lg bg-emerald-50 border border-emerald-200/50 flex items-center justify-center text-emerald-700">
+                <div className="w-6 h-6 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/50 dark:border-emerald-800/60 flex items-center justify-center text-emerald-700 dark:text-emerald-400">
                   <CreditCard className="w-3.5 h-3.5" />
                 </div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                   {t.itemizedDeductionsTitle.replace("{freq}", frequencyLabel)}
                 </h3>
               </div>
-              <span className="text-[11px] text-zinc-400 font-medium">2024–2026 Schedule</span>
+              <span className="text-[11px] text-zinc-400 dark:text-zinc-500 font-medium">2024–2026 Schedule</span>
             </div>
 
             {/* Deductions breakdown */}
-            <div className="divide-y divide-zinc-100 text-xs">
+            <div className="divide-y divide-zinc-100 dark:divide-zinc-800 text-xs">
               {/* Gross */}
-              <div className="py-2.5 flex items-center justify-between font-bold text-zinc-900">
+              <div className="py-2.5 flex items-center justify-between font-bold text-zinc-900 dark:text-zinc-100">
                 <span>{t.grossSalaryCard}</span>
                 <span className="tabular-nums text-sm">{formatPHP(result.monthlyBasic * multiplier)}</span>
               </div>
 
               {/* SSS */}
-              <div className="py-2.5 flex items-center justify-between text-zinc-700">
+              <div className="py-2.5 flex items-center justify-between text-zinc-700 dark:text-zinc-300">
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <span className="font-semibold text-zinc-900">{t.sssLabel}</span>
-                    <span className="text-[9.5px] font-bold bg-zinc-100 text-zinc-600 px-1.5 py-0.2 rounded border border-zinc-200">
+                    <span className="font-semibold text-zinc-900 dark:text-zinc-100">{t.sssLabel}</span>
+                    <span className="text-[9.5px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">
                       RA 11199
                     </span>
                   </div>
-                  <div className="text-[11px] text-zinc-400">
+                  <div className="text-[11px] text-zinc-400 dark:text-zinc-500">
                     {t.sssNote
                       .replace("{msc}", formatPHP(result.sss.msc))
                       .replace("{employer}", formatPHP(result.sss.employer * multiplier))}
                   </div>
                 </div>
-                <span className="font-bold text-rose-600 tabular-nums">
+                <span className="font-bold text-rose-600 dark:text-rose-400 tabular-nums">
                   -{formatPHP(result.sss.employee * multiplier)}
                 </span>
               </div>
 
               {/* PhilHealth */}
-              <div className="py-2.5 flex items-center justify-between text-zinc-700">
+              <div className="py-2.5 flex items-center justify-between text-zinc-700 dark:text-zinc-300">
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <span className="font-semibold text-zinc-900">{t.philHealthLabel}</span>
-                    <span className="text-[9.5px] font-bold bg-zinc-100 text-zinc-600 px-1.5 py-0.2 rounded border border-zinc-200">
+                    <span className="font-semibold text-zinc-900 dark:text-zinc-100">{t.philHealthLabel}</span>
+                    <span className="text-[9.5px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">
                       RA 11223
                     </span>
                   </div>
-                  <div className="text-[11px] text-zinc-400">
+                  <div className="text-[11px] text-zinc-400 dark:text-zinc-500">
                     {t.philHealthNote.replace("{employer}", formatPHP(result.philHealth.employer * multiplier))}
                   </div>
                 </div>
-                <span className="font-bold text-rose-600 tabular-nums">
+                <span className="font-bold text-rose-600 dark:text-rose-400 tabular-nums">
                   -{formatPHP(result.philHealth.employee * multiplier)}
                 </span>
               </div>
 
               {/* Pag-IBIG */}
-              <div className="py-2.5 flex items-center justify-between text-zinc-700">
+              <div className="py-2.5 flex items-center justify-between text-zinc-700 dark:text-zinc-300">
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <span className="font-semibold text-zinc-900">{t.pagIbigLabel}</span>
-                    <span className="text-[9.5px] font-bold bg-zinc-100 text-zinc-600 px-1.5 py-0.2 rounded border border-zinc-200">
+                    <span className="font-semibold text-zinc-900 dark:text-zinc-100">{t.pagIbigLabel}</span>
+                    <span className="text-[9.5px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">
                       RA 9679
                     </span>
                   </div>
-                  <div className="text-[11px] text-zinc-400">
+                  <div className="text-[11px] text-zinc-400 dark:text-zinc-500">
                     {t.pagIbigNote.replace("{employer}", formatPHP(result.pagIbig.employer * multiplier))}
                   </div>
                 </div>
-                <span className="font-bold text-rose-600 tabular-nums">
+                <span className="font-bold text-rose-600 dark:text-rose-400 tabular-nums">
                   -{formatPHP(result.pagIbig.employee * multiplier)}
                 </span>
               </div>
 
               {/* Taxable Base */}
-              <div className="py-2.5 flex items-center justify-between bg-zinc-50 px-3 rounded-lg text-zinc-600">
+              <div className="py-2.5 flex items-center justify-between bg-zinc-50 dark:bg-zinc-800/60 px-3 rounded-lg text-zinc-600 dark:text-zinc-400">
                 <span>{t.taxableCompLabel}</span>
-                <span className="font-bold text-zinc-900 tabular-nums">
+                <span className="font-bold text-zinc-900 dark:text-zinc-100 tabular-nums">
                   {formatPHP(result.taxableCompensationMonthly * multiplier)}
                 </span>
               </div>
 
               {/* BIR Withholding Tax */}
-              <div className="py-2.5 flex items-center justify-between text-zinc-700">
+              <div className="py-2.5 flex items-center justify-between text-zinc-700 dark:text-zinc-300">
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <span className="font-semibold text-zinc-900">{t.withholdingTaxLabel}</span>
-                    <span className="text-[9.5px] font-bold bg-zinc-100 text-zinc-600 px-1.5 py-0.2 rounded border border-zinc-200">
+                    <span className="font-semibold text-zinc-900 dark:text-zinc-100">{t.withholdingTaxLabel}</span>
+                    <span className="text-[9.5px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">
                       RA 10963
                     </span>
                   </div>
-                  <div className="text-[11px] text-zinc-400">{t.withholdingTaxNote}</div>
+                  <div className="text-[11px] text-zinc-400 dark:text-zinc-500">{t.withholdingTaxNote}</div>
                 </div>
-                <span className="font-bold text-rose-600 tabular-nums">
+                <span className="font-bold text-rose-600 dark:text-rose-400 tabular-nums">
                   -{formatPHP(result.withholdingTaxMonthly * multiplier)}
                 </span>
               </div>
 
               {/* Final Take-Home */}
-              <div className="pt-3 flex items-center justify-between font-extrabold text-sm sm:text-base text-zinc-900">
-                <span className="flex items-center gap-1.5 text-emerald-700">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <div className="pt-3 flex items-center justify-between font-extrabold text-sm sm:text-base text-zinc-900 dark:text-zinc-100">
+                <span className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   {t.netTakeHomeTotal}
                 </span>
-                <span className="tabular-nums text-lg sm:text-xl text-emerald-600">
+                <span className="tabular-nums text-lg sm:text-xl text-emerald-600 dark:text-emerald-400">
                   {formatPHP(result.netPayMonthly * multiplier)}
                 </span>
               </div>
@@ -498,39 +498,39 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
           </div>
 
           {/* 13th Month Pay & Year-End Bonus Simulator */}
-          <div className="bg-white border border-zinc-200/90 rounded-2xl p-5 sm:p-6 shadow-xs space-y-3">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800 rounded-2xl p-5 sm:p-6 shadow-xs space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-lg bg-purple-50 border border-purple-200/50 flex items-center justify-center text-purple-700">
+                <div className="w-6 h-6 rounded-lg bg-purple-50 dark:bg-purple-950/60 border border-purple-200/50 dark:border-purple-800/60 flex items-center justify-center text-purple-700 dark:text-purple-400">
                   <Gift className="w-3.5 h-3.5" />
                 </div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                   {t.thirteenthMonthTitle}
                 </h3>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold bg-purple-100 text-purple-800 border border-purple-200/80 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-bold bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300 border border-purple-200/80 dark:border-purple-800 px-2 py-0.5 rounded-full">
                   PD 851 & RA 10963
                 </span>
-                <span className="text-[11px] font-semibold text-purple-700 bg-purple-50 border border-purple-200/60 px-2 py-0.5 rounded-full">
+                <span className="text-[11px] font-semibold text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/60 border border-purple-200/60 dark:border-purple-800/60 px-2 py-0.5 rounded-full">
                   {t.thirteenthMonthCap}
                 </span>
               </div>
             </div>
 
-            <div className="p-3.5 bg-zinc-50 border border-zinc-200/80 rounded-xl space-y-2 text-xs">
+            <div className="p-3.5 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200/80 dark:border-zinc-800 rounded-xl space-y-2 text-xs">
               <div className="flex justify-between items-center">
-                <span className="text-zinc-600">{t.thirteenthMonthTotal}</span>
-                <span className="font-bold text-zinc-900 tabular-nums">{formatPHP(result.thirteenthMonth.total)}</span>
+                <span className="text-zinc-600 dark:text-zinc-400">{t.thirteenthMonthTotal}</span>
+                <span className="font-bold text-zinc-900 dark:text-zinc-100 tabular-nums">{formatPHP(result.thirteenthMonth.total)}</span>
               </div>
 
-              <div className="flex justify-between items-center text-emerald-700">
+              <div className="flex justify-between items-center text-emerald-700 dark:text-emerald-400">
                 <span>{t.thirteenthMonthExempt}</span>
                 <span className="font-bold tabular-nums">+{formatPHP(result.thirteenthMonth.exempt)}</span>
               </div>
 
               {result.thirteenthMonth.taxable > 0 && (
-                <div className="flex justify-between items-center text-rose-600">
+                <div className="flex justify-between items-center text-rose-600 dark:text-rose-400">
                   <span>{t.thirteenthMonthTaxable}</span>
                   <span className="font-bold tabular-nums">
                     -{formatPHP(result.thirteenthMonth.taxDue)} ({formatPHP(result.thirteenthMonth.taxable)} excess)
@@ -538,9 +538,9 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
                 </div>
               )}
 
-              <div className="pt-2 border-t border-zinc-200 flex justify-between items-center font-bold text-zinc-900">
+              <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 flex justify-between items-center font-bold text-zinc-900 dark:text-zinc-100">
                 <span>{t.thirteenthMonthNet}</span>
-                <span className="text-emerald-700 text-sm font-extrabold tabular-nums">
+                <span className="text-emerald-700 dark:text-emerald-400 text-sm font-extrabold tabular-nums">
                   {formatPHP(result.thirteenthMonth.netAmount)}
                 </span>
               </div>
@@ -548,25 +548,25 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
           </div>
 
           {/* Employer Share & Cost to Company (CTC) */}
-          <div className="bg-white border border-zinc-200/90 rounded-2xl p-5 sm:p-6 shadow-xs space-y-3">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800 rounded-2xl p-5 sm:p-6 shadow-xs space-y-3">
             <button
               type="button"
               onClick={() => setShowEmployerShare(!showEmployerShare)}
               className="w-full flex items-center justify-between cursor-pointer text-left"
             >
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-lg bg-sky-50 border border-sky-200/50 flex items-center justify-center text-sky-700">
+                <div className="w-6 h-6 rounded-lg bg-sky-50 dark:bg-sky-950/60 border border-sky-200/50 dark:border-sky-800/60 flex items-center justify-center text-sky-700 dark:text-sky-400">
                   <Building2 className="w-3.5 h-3.5" />
                 </div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                   {t.employerShareTitle}
                 </h3>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-semibold text-sky-700 bg-sky-50 border border-sky-200/60 px-2 py-0.5 rounded-full">
+                <span className="text-[11px] font-semibold text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/60 border border-sky-200/60 dark:border-sky-800/60 px-2 py-0.5 rounded-full">
                   {t.employerShareBadge}
                 </span>
-                <span className="text-zinc-400">
+                <span className="text-zinc-400 dark:text-zinc-500">
                   {showEmployerShare ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </span>
               </div>
@@ -574,42 +574,42 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
 
             {showEmployerShare && (
               <>
-                <p className="text-xs text-zinc-500 leading-relaxed">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
                   {t.employerShareDesc}
                 </p>
 
-                <div className="p-3.5 bg-zinc-50 border border-zinc-200/80 rounded-xl space-y-2 text-xs">
-                  <div className="flex justify-between items-center text-zinc-700">
+                <div className="p-3.5 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200/80 dark:border-zinc-800 rounded-xl space-y-2 text-xs">
+                  <div className="flex justify-between items-center text-zinc-700 dark:text-zinc-300">
                     <span>{t.employerSSS}</span>
-                    <span className="font-semibold tabular-nums text-zinc-900">
+                    <span className="font-semibold tabular-nums text-zinc-900 dark:text-zinc-100">
                       {formatPHP((result.sss.employer + result.sss.ec) * multiplier)}
                     </span>
                   </div>
 
-                  <div className="flex justify-between items-center text-zinc-700">
+                  <div className="flex justify-between items-center text-zinc-700 dark:text-zinc-300">
                     <span>{t.employerPhilHealth}</span>
-                    <span className="font-semibold tabular-nums text-zinc-900">
+                    <span className="font-semibold tabular-nums text-zinc-900 dark:text-zinc-100">
                       {formatPHP(result.philHealth.employer * multiplier)}
                     </span>
                   </div>
 
-                  <div className="flex justify-between items-center text-zinc-700">
+                  <div className="flex justify-between items-center text-zinc-700 dark:text-zinc-300">
                     <span>{t.employerPagIbig}</span>
-                    <span className="font-semibold tabular-nums text-zinc-900">
+                    <span className="font-semibold tabular-nums text-zinc-900 dark:text-zinc-100">
                       {formatPHP(result.pagIbig.employer * multiplier)}
                     </span>
                   </div>
 
-                  <div className="pt-2 border-t border-zinc-200 flex justify-between items-center font-bold text-zinc-900">
+                  <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 flex justify-between items-center font-bold text-zinc-900 dark:text-zinc-100">
                     <span>{t.totalEmployerContrib}</span>
-                    <span className="text-sky-700 text-sm tabular-nums">
+                    <span className="text-sky-700 dark:text-sky-400 text-sm tabular-nums">
                       +{formatPHP(result.employerTotalMonthly * multiplier)}
                     </span>
                   </div>
 
-                  <div className="pt-2 border-t border-zinc-200/80 flex justify-between items-center font-extrabold text-zinc-900">
+                  <div className="pt-2 border-t border-zinc-200/80 dark:border-zinc-800/80 flex justify-between items-center font-extrabold text-zinc-900 dark:text-zinc-100">
                     <span className="text-xs sm:text-sm">{t.totalCostToCompanyLabel}</span>
-                    <span className="text-zinc-900 text-base sm:text-lg font-black tabular-nums">
+                    <span className="text-zinc-900 dark:text-zinc-100 text-base sm:text-lg font-black tabular-nums">
                       {formatPHP(result.totalCostToCompanyMonthly * multiplier)}
                     </span>
                   </div>
@@ -621,90 +621,90 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
       </div>
 
       {/* Full-Time Employee Statutory Basis & Republic Acts Accordion */}
-      <div className="bg-white border border-zinc-200/90 rounded-2xl p-5 sm:p-6 shadow-xs space-y-4">
+      <div className="bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800 rounded-2xl p-5 sm:p-6 shadow-xs space-y-4">
         <button
           type="button"
           onClick={() => setShowStatutoryBasis(!showStatutoryBasis)}
           className="w-full flex items-center justify-between cursor-pointer text-left"
         >
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-sky-50 border border-sky-200/50 flex items-center justify-center text-sky-700 shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-sky-50 dark:bg-sky-950/60 border border-sky-200/50 dark:border-sky-800/60 flex items-center justify-center text-sky-700 dark:text-sky-400 shrink-0">
               <Scale className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-xs sm:text-sm font-bold text-zinc-900">
+              <h3 className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-zinc-100">
                 {t.empStatutoryTitle}
               </h3>
-              <p className="text-[11px] text-zinc-500">
+              <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
                 {t.empStatutorySubtitle}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="hidden sm:inline text-[11px] font-semibold text-sky-700 bg-sky-50 border border-sky-200/60 px-2.5 py-0.5 rounded-full">
+            <span className="hidden sm:inline text-[11px] font-semibold text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/60 border border-sky-200/60 dark:border-sky-800/60 px-2.5 py-0.5 rounded-full">
               {t.empStatutoryBadge}
             </span>
-            <span className="text-zinc-400">
+            <span className="text-zinc-400 dark:text-zinc-500">
               {showStatutoryBasis ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
             </span>
           </div>
         </button>
 
         {showStatutoryBasis && (
-          <div className="pt-3 border-t border-zinc-100 space-y-3">
+          <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-3">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
               {/* TRAIN Law */}
-              <div className="p-3 bg-zinc-50 border border-zinc-200/70 rounded-xl space-y-1">
+              <div className="p-3 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200/70 dark:border-zinc-800/80 rounded-xl space-y-1">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-zinc-900">{t.trainLawCiteTitle}</span>
-                  <span className="text-[9.5px] font-bold bg-white text-zinc-600 px-1.5 py-0.2 rounded border border-zinc-200">BIR</span>
+                  <span className="font-bold text-zinc-900 dark:text-zinc-100">{t.trainLawCiteTitle}</span>
+                  <span className="text-[9.5px] font-bold bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">BIR</span>
                 </div>
-                <p className="text-[11px] text-zinc-600 leading-relaxed">{t.trainLawCiteDesc}</p>
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">{t.trainLawCiteDesc}</p>
               </div>
 
               {/* 13th Month Pay */}
-              <div className="p-3 bg-zinc-50 border border-zinc-200/70 rounded-xl space-y-1">
+              <div className="p-3 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200/70 dark:border-zinc-800/80 rounded-xl space-y-1">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-zinc-900">{t.pd851CiteTitle}</span>
-                  <span className="text-[9.5px] font-bold bg-white text-zinc-600 px-1.5 py-0.2 rounded border border-zinc-200">DOLE</span>
+                  <span className="font-bold text-zinc-900 dark:text-zinc-100">{t.pd851CiteTitle}</span>
+                  <span className="text-[9.5px] font-bold bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">DOLE</span>
                 </div>
-                <p className="text-[11px] text-zinc-600 leading-relaxed">{t.pd851CiteDesc}</p>
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">{t.pd851CiteDesc}</p>
               </div>
 
               {/* SSS Law */}
-              <div className="p-3 bg-zinc-50 border border-zinc-200/70 rounded-xl space-y-1">
+              <div className="p-3 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200/70 dark:border-zinc-800/80 rounded-xl space-y-1">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-zinc-900">{t.sssLawCiteTitle}</span>
-                  <span className="text-[9.5px] font-bold bg-white text-zinc-600 px-1.5 py-0.2 rounded border border-zinc-200">SSS</span>
+                  <span className="font-bold text-zinc-900 dark:text-zinc-100">{t.sssLawCiteTitle}</span>
+                  <span className="text-[9.5px] font-bold bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">SSS</span>
                 </div>
-                <p className="text-[11px] text-zinc-600 leading-relaxed">{t.sssLawCiteDesc}</p>
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">{t.sssLawCiteDesc}</p>
               </div>
 
               {/* PhilHealth */}
-              <div className="p-3 bg-zinc-50 border border-zinc-200/70 rounded-xl space-y-1">
+              <div className="p-3 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200/70 dark:border-zinc-800/80 rounded-xl space-y-1">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-zinc-900">{t.philhealthCiteTitle}</span>
-                  <span className="text-[9.5px] font-bold bg-white text-zinc-600 px-1.5 py-0.2 rounded border border-zinc-200">PhilHealth</span>
+                  <span className="font-bold text-zinc-900 dark:text-zinc-100">{t.philhealthCiteTitle}</span>
+                  <span className="text-[9.5px] font-bold bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">PhilHealth</span>
                 </div>
-                <p className="text-[11px] text-zinc-600 leading-relaxed">{t.philhealthCiteDesc}</p>
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">{t.philhealthCiteDesc}</p>
               </div>
 
               {/* Pag-IBIG */}
-              <div className="p-3 bg-zinc-50 border border-zinc-200/70 rounded-xl space-y-1">
+              <div className="p-3 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200/70 dark:border-zinc-800/80 rounded-xl space-y-1">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-zinc-900">{t.pagibigCiteTitle}</span>
-                  <span className="text-[9.5px] font-bold bg-white text-zinc-600 px-1.5 py-0.2 rounded border border-zinc-200">HDMF</span>
+                  <span className="font-bold text-zinc-900 dark:text-zinc-100">{t.pagibigCiteTitle}</span>
+                  <span className="text-[9.5px] font-bold bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">HDMF</span>
                 </div>
-                <p className="text-[11px] text-zinc-600 leading-relaxed">{t.pagibigCiteDesc}</p>
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">{t.pagibigCiteDesc}</p>
               </div>
 
               {/* DOLE Daily/Hourly */}
-              <div className="p-3 bg-zinc-50 border border-zinc-200/70 rounded-xl space-y-1">
+              <div className="p-3 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200/70 dark:border-zinc-800/80 rounded-xl space-y-1">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-zinc-900">{t.doleCiteTitle}</span>
-                  <span className="text-[9.5px] font-bold bg-white text-zinc-600 px-1.5 py-0.2 rounded border border-zinc-200">DOLE</span>
+                  <span className="font-bold text-zinc-900 dark:text-zinc-100">{t.doleCiteTitle}</span>
+                  <span className="text-[9.5px] font-bold bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">DOLE</span>
                 </div>
-                <p className="text-[11px] text-zinc-600 leading-relaxed">{t.doleCiteDesc}</p>
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">{t.doleCiteDesc}</p>
               </div>
             </div>
 
@@ -713,9 +713,9 @@ export function EmployeeSalaryCalculator({ lang, onOpenGlossary }: EmployeeSalar
                 <button
                   type="button"
                   onClick={onOpenGlossary}
-                  className="text-xs font-semibold text-zinc-700 hover:text-zinc-900 flex items-center gap-1.5 underline underline-offset-2 cursor-pointer"
+                  className="text-xs font-semibold text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-100 flex items-center gap-1.5 underline underline-offset-2 cursor-pointer"
                 >
-                  <Scale className="w-3.5 h-3.5 text-zinc-500" />
+                  <Scale className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
                   <span>{lang === "en" ? "Open Full Statutory Citations & Legal Text" : "Buksan ang Buong Talaan ng Batas at Citations"} →</span>
                 </button>
               </div>

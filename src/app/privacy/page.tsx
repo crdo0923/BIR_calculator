@@ -1,35 +1,65 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, ShieldCheck, Lock, EyeOff, ServerOff } from "lucide-react";
+import { ArrowLeft, ShieldCheck, Lock, EyeOff, ServerOff, Sun, Moon } from "lucide-react";
 import { Language } from "@/lib/translations";
 
 export default function PrivacyPolicyPage() {
   const [lang, setLang] = useState<Language>("en");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
   const isEn = lang === "en";
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isDark = document.documentElement.classList.contains("dark");
+      setTheme(isDark ? "dark" : "light");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    if (nextTheme === "dark") {
+      document.documentElement.classList.add("dark");
+      try { localStorage.setItem("bir_calc_theme", "dark"); } catch {}
+    } else {
+      document.documentElement.classList.remove("dark");
+      try { localStorage.setItem("bir_calc_theme", "light"); } catch {}
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-zinc-50 text-zinc-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 flex flex-col">
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans selection:bg-emerald-100 dark:selection:bg-emerald-950 selection:text-emerald-900 dark:selection:text-emerald-200 flex flex-col transition-colors">
       {/* Top Bar */}
-      <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-zinc-200 shadow-xs">
+      <header className="sticky top-0 z-30 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 shadow-xs">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-zinc-600 hover:text-zinc-900 transition"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>{isEn ? "Back to Calculator" : "Bumalik sa Calculator"}</span>
           </Link>
 
           <div className="flex items-center gap-2">
+            {/* Theme Switcher */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              className="w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition flex items-center justify-center cursor-pointer border border-zinc-200 dark:border-zinc-700"
+            >
+              {theme === "dark" ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-600" />}
+            </button>
+
             {/* Language Switcher */}
-            <div className="flex items-center bg-zinc-100 p-0.5 rounded-xl border border-zinc-200">
+            <div className="flex items-center bg-zinc-100 dark:bg-zinc-800 p-0.5 rounded-xl border border-zinc-200 dark:border-zinc-700">
               <button
                 type="button"
                 onClick={() => setLang("en")}
                 className={`px-2 py-1 rounded-lg text-[11px] font-bold transition cursor-pointer ${
-                  lang === "en" ? "bg-white text-zinc-900 shadow-xs" : "text-zinc-500 hover:text-zinc-900"
+                  lang === "en" ? "bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-xs" : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
                 }`}
               >
                 🇺🇸 EN
@@ -38,7 +68,7 @@ export default function PrivacyPolicyPage() {
                 type="button"
                 onClick={() => setLang("tl")}
                 className={`px-2 py-1 rounded-lg text-[11px] font-bold transition cursor-pointer ${
-                  lang === "tl" ? "bg-white text-zinc-900 shadow-xs" : "text-zinc-500 hover:text-zinc-900"
+                  lang === "tl" ? "bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-xs" : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
                 }`}
               >
                 🇵🇭 TL
@@ -50,17 +80,17 @@ export default function PrivacyPolicyPage() {
 
       {/* Main Privacy Policy Content */}
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <div className="bg-white rounded-2xl border border-zinc-200/80 p-6 sm:p-10 shadow-xs space-y-8">
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200/80 dark:border-zinc-800 p-6 sm:p-10 shadow-xs space-y-8">
           {/* Header */}
-          <div className="space-y-2 border-b border-zinc-100 pb-6">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/60">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+          <div className="space-y-2 border-b border-zinc-100 dark:border-zinc-800 pb-6">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
               <span>{isEn ? "Privacy by Architecture" : "Disenyo ng Pribadong Arkitektura"}</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight">
               {isEn ? "Privacy Policy" : "Patakaran sa Privacy"}
             </h1>
-            <p className="text-xs sm:text-sm text-zinc-500">
+            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
               {isEn
                 ? "Effective 2026. Compliant with the Philippine Data Privacy Act of 2012 (Republic Act No. 10173)."
                 : "May bisa 2026. Alinsunod sa Data Privacy Act of 2012 ng Pilipinas (Batas Republika Blg. 10173)."}
@@ -69,42 +99,42 @@ export default function PrivacyPolicyPage() {
 
           {/* Key Privacy Highlights Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="p-4 rounded-xl border border-zinc-200 bg-zinc-50 space-y-1.5">
-              <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center">
-                <ServerOff className="w-4 h-4" />
+            <div className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/60 space-y-1.5">
+              <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 flex items-center justify-center border border-emerald-200/60 dark:border-emerald-800/60">
+                <ServerOff className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               </div>
-              <h3 className="font-bold text-zinc-900 text-xs sm:text-sm">
+              <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-xs sm:text-sm">
                 {isEn ? "Zero Server Storage" : "Walang Server Storage"}
               </h3>
-              <p className="text-[11px] text-zinc-600 leading-normal">
+              <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-normal">
                 {isEn
                   ? "Your gross sales, salary, and tax computations never leave your browser."
                   : "Ang sweldo, benta, at kwenta mo ay hindi lumalabas sa iyong cellphone o computer."}
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border border-zinc-200 bg-zinc-50 space-y-1.5">
-              <div className="w-8 h-8 rounded-lg bg-sky-100 text-sky-800 flex items-center justify-center">
-                <EyeOff className="w-4 h-4" />
+            <div className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/60 space-y-1.5">
+              <div className="w-8 h-8 rounded-lg bg-sky-100 dark:bg-sky-950/70 text-sky-800 dark:text-sky-300 flex items-center justify-center border border-sky-200/60 dark:border-sky-800/60">
+                <EyeOff className="w-4 h-4 text-sky-600 dark:text-sky-400" />
               </div>
-              <h3 className="font-bold text-zinc-900 text-xs sm:text-sm">
+              <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-xs sm:text-sm">
                 {isEn ? "No Ad Tracking" : "Walang Tracking o Ads"}
               </h3>
-              <p className="text-[11px] text-zinc-600 leading-normal">
+              <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-normal">
                 {isEn
                   ? "Zero advertising beacons, cross-site trackers, or third-party behavioral profiling."
                   : "Walang advertising trackers, marketing pixels, o pagbebenta ng data."}
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border border-zinc-200 bg-zinc-50 space-y-1.5">
-              <div className="w-8 h-8 rounded-lg bg-zinc-200 text-zinc-800 flex items-center justify-center">
-                <Lock className="w-4 h-4" />
+            <div className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/60 space-y-1.5">
+              <div className="w-8 h-8 rounded-lg bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 flex items-center justify-center border border-zinc-300/60 dark:border-zinc-700">
+                <Lock className="w-4 h-4 text-zinc-700 dark:text-zinc-300" />
               </div>
-              <h3 className="font-bold text-zinc-900 text-xs sm:text-sm">
+              <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-xs sm:text-sm">
                 {isEn ? "No Login Required" : "Walang Login o Signup"}
               </h3>
-              <p className="text-[11px] text-zinc-600 leading-normal">
+              <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-normal">
                 {isEn
                   ? "Use the calculator completely anonymously without email or phone numbers."
                   : "Gamitin ang tool nang hindi nangangailangan ng email o personal na account."}
@@ -113,11 +143,11 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* Privacy Articles */}
-          <div className="space-y-6 text-xs sm:text-sm leading-relaxed text-zinc-700">
+          <div className="space-y-6 text-xs sm:text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
             {/* 1. Information We Do NOT Collect */}
             <section className="space-y-2">
-              <h2 className="text-base font-bold text-zinc-900 flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-zinc-100 text-zinc-800 text-xs flex items-center justify-center font-bold">
+              <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs flex items-center justify-center font-bold border border-zinc-200/60 dark:border-zinc-700">
                   1
                 </span>
                 {isEn ? "Information We Do NOT Collect" : "Mga Impormasyong HINDI Namin Kinokolekta"}
@@ -131,8 +161,8 @@ export default function PrivacyPolicyPage() {
 
             {/* 2. Local Storage and Cookies */}
             <section className="space-y-2">
-              <h2 className="text-base font-bold text-zinc-900 flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-zinc-100 text-zinc-800 text-xs flex items-center justify-center font-bold">
+              <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs flex items-center justify-center font-bold border border-zinc-200/60 dark:border-zinc-700">
                   2
                 </span>
                 {isEn ? "How Local Storage & Cookies Are Used" : "Paano Ginagamit ang Local Storage at Cookies"}
@@ -142,15 +172,15 @@ export default function PrivacyPolicyPage() {
                   ? "We only use your browser's localStorage for essential preferences:"
                   : "Gumagamit lamang kami ng localStorage para sa mga mahahalagang kagustuhan:"}
               </p>
-              <ul className="list-disc pl-5 space-y-1 text-zinc-600 text-xs">
+              <ul className="list-disc pl-5 space-y-1 text-zinc-600 dark:text-zinc-400 text-xs">
                 <li>
-                  <strong className="text-zinc-900">Language Preference:</strong>{" "}
+                  <strong className="text-zinc-900 dark:text-zinc-100">Language Preference:</strong>{" "}
                   {isEn
                     ? "Remembers whether you selected English (en) or Tagalog (tl)."
                     : "Tinatandaan kung English (en) o Tagalog (tl) ang pinili mo."}
                 </li>
                 <li>
-                  <strong className="text-zinc-900">Cookie Consent State:</strong>{" "}
+                  <strong className="text-zinc-900 dark:text-zinc-100">Cookie Consent State:</strong>{" "}
                   {isEn
                     ? "Saves whether you accepted or customized cookie settings (bir_cookie_consent)."
                     : "Itinatala kung tinanggap mo ang abiso sa cookies upang hindi ito muling lumabas."}
@@ -165,8 +195,8 @@ export default function PrivacyPolicyPage() {
 
             {/* 3. Compliance with RA 10173 */}
             <section className="space-y-2">
-              <h2 className="text-base font-bold text-zinc-900 flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-zinc-100 text-zinc-800 text-xs flex items-center justify-center font-bold">
+              <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs flex items-center justify-center font-bold border border-zinc-200/60 dark:border-zinc-700">
                   3
                 </span>
                 {isEn
@@ -182,8 +212,8 @@ export default function PrivacyPolicyPage() {
 
             {/* 4. Third-Party Links */}
             <section className="space-y-2">
-              <h2 className="text-base font-bold text-zinc-900 flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-zinc-100 text-zinc-800 text-xs flex items-center justify-center font-bold">
+              <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs flex items-center justify-center font-bold border border-zinc-200/60 dark:border-zinc-700">
                   4
                 </span>
                 {isEn ? "External Government Portals" : "Mga Link sa Website ng Gobyerno"}
@@ -197,17 +227,17 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* Footer Navigation */}
-          <div className="pt-6 border-t border-zinc-100 flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-500">
+          <div className="pt-6 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-400">
             <div className="flex items-center gap-2">
               <span>© 2026 BIR Co-Pilot PH</span>
               <span>•</span>
-              <span className="font-medium text-zinc-700">Made with ❤️ by <strong>DEVjules</strong></span>
+              <span className="font-medium text-zinc-700 dark:text-zinc-300">Made with ❤️ by <strong>DEVjules</strong></span>
             </div>
             <div className="flex items-center gap-3">
-              <Link href="/terms" className="hover:text-zinc-900 underline">
+              <Link href="/terms" className="hover:text-zinc-900 dark:hover:text-zinc-100 underline">
                 {isEn ? "Terms of Service" : "Tuntunin ng Paggamit"}
               </Link>
-              <Link href="/" className="hover:text-zinc-900 underline">
+              <Link href="/" className="hover:text-zinc-900 dark:hover:text-zinc-100 underline">
                 {isEn ? "Open Calculator" : "Buksan ang Calculator"}
               </Link>
             </div>

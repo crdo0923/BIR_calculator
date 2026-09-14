@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { computeAll, CWTMode } from "@/lib/tax-engine";
 import { Language, translations } from "@/lib/translations";
 import { Header } from "@/components/Header";
@@ -23,6 +23,41 @@ export default function Home() {
   // Language toggle: default English, interactive English/Tagalog toggle
   const [lang, setLang] = useState<Language>("en");
   const t = translations[lang];
+
+  // Theme state: light or dark
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    // Synchronize initial theme state from class set by head script or localStorage
+    const isDark = document.documentElement.classList.contains("dark");
+    setTheme(isDark ? "dark" : "light");
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (!localStorage.getItem("theme")) {
+        if (e.matches) {
+          document.documentElement.classList.add("dark");
+          setTheme("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+          setTheme("light");
+        }
+      }
+    };
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    localStorage.setItem("theme", nextTheme);
+    if (nextTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  };
 
   // Mode switcher: Freelance/Business vs Employee
   const [appMode, setAppMode] = useState<"freelance" | "employee">("freelance");
@@ -69,11 +104,13 @@ export default function Home() {
   const winnerIs8 = result.winner === "8%";
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 via-zinc-50/80 to-slate-100/60 text-zinc-900 font-sans selection:bg-emerald-100 selection:text-emerald-900">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 via-zinc-50/80 to-slate-100/60 dark:from-zinc-950 dark:via-zinc-900/90 dark:to-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans selection:bg-emerald-100 dark:selection:bg-emerald-950 selection:text-emerald-900 dark:selection:text-emerald-200 transition-colors duration-200">
       {/* Top Navigation */}
       <Header
         lang={lang}
         setLang={setLang}
+        theme={theme}
+        toggleTheme={toggleTheme}
         onOpenEBIR={() => setIsEBIRModalOpen(true)}
         onOpenPaymentGuide={() => setIsPaymentModalOpen(true)}
         onOpenGlossary={() => setIsGlossaryModalOpen(true)}
@@ -86,25 +123,25 @@ export default function Home() {
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-10 space-y-8 sm:space-y-10">
         {/* Hero Section: Immediate 3-Second Clarity */}
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-semibold bg-white border border-zinc-200/80 shadow-2xs text-zinc-600">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-semibold bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-2xs text-zinc-600 dark:text-zinc-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-500" />
             <span>{appMode === "freelance" ? t.heroFreelanceBadge : t.heroEmployeeBadge}</span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900">
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100">
             {appMode === "freelance" ? t.heroMainTitle : t.heroEmployeeTitle}
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-600 max-w-lg mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-lg mx-auto leading-relaxed">
             {appMode === "freelance" ? t.heroMainSubtitle : t.heroEmployeeSubtitle}
           </p>
 
           {/* Step Guide */}
-          <div className="pt-1 text-[11px] font-medium text-zinc-400">
+          <div className="pt-1 text-[11px] font-medium text-zinc-400 dark:text-zinc-500">
             {t.heroStepGuide}
           </div>
         </div>
 
-        {/* Step 1: Choose Taxpayer (Clean 2-card selection, no dark container) */}
+        {/* Step 1: Choose Taxpayer (Clean 2-card selection) */}
         <div className="max-w-xl mx-auto w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {/* Card 1: Self-employed / Freelancer */}
@@ -113,29 +150,29 @@ export default function Home() {
               onClick={() => setAppMode("freelance")}
               className={`p-4 rounded-2xl border text-left transition cursor-pointer relative ${
                 appMode === "freelance"
-                  ? "bg-white border-emerald-600 ring-2 ring-emerald-600/20 shadow-xs"
-                  : "bg-white/80 border-zinc-200/90 hover:border-zinc-300 hover:bg-white text-zinc-600"
+                  ? "bg-white dark:bg-zinc-900 border-emerald-600 dark:border-emerald-500 ring-2 ring-emerald-600/20 dark:ring-emerald-500/20 shadow-xs"
+                  : "bg-white/80 dark:bg-zinc-900/60 border-zinc-200/90 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-white dark:hover:bg-zinc-900 text-zinc-600 dark:text-zinc-400"
               }`}
             >
               <div className="flex items-center gap-2.5 mb-1">
                 <div
                   className={`w-7 h-7 rounded-lg flex items-center justify-center ${
                     appMode === "freelance"
-                      ? "bg-emerald-700 text-white"
-                      : "bg-zinc-100 text-zinc-600"
+                      ? "bg-emerald-700 dark:bg-emerald-600 text-white"
+                      : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
                   }`}
                 >
                   <Briefcase className="w-3.5 h-3.5" />
                 </div>
-                <div className="font-bold text-xs sm:text-sm text-zinc-900">
+                <div className="font-bold text-xs sm:text-sm text-zinc-900 dark:text-zinc-100">
                   {t.taxpayerCardSelfEmployed}
                 </div>
               </div>
-              <p className="text-[11px] text-zinc-500 leading-snug">
+              <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
                 {t.taxpayerCardSelfEmployedSub}
               </p>
               {appMode === "freelance" && (
-                <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-emerald-600" />
+                <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-500" />
               )}
             </button>
 
@@ -145,29 +182,29 @@ export default function Home() {
               onClick={() => setAppMode("employee")}
               className={`p-4 rounded-2xl border text-left transition cursor-pointer relative ${
                 appMode === "employee"
-                  ? "bg-white border-emerald-600 ring-2 ring-emerald-600/20 shadow-xs"
-                  : "bg-white/80 border-zinc-200/90 hover:border-zinc-300 hover:bg-white text-zinc-600"
+                  ? "bg-white dark:bg-zinc-900 border-emerald-600 dark:border-emerald-500 ring-2 ring-emerald-600/20 dark:ring-emerald-500/20 shadow-xs"
+                  : "bg-white/80 dark:bg-zinc-900/60 border-zinc-200/90 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-white dark:hover:bg-zinc-900 text-zinc-600 dark:text-zinc-400"
               }`}
             >
               <div className="flex items-center gap-2.5 mb-1">
                 <div
                   className={`w-7 h-7 rounded-lg flex items-center justify-center ${
                     appMode === "employee"
-                      ? "bg-emerald-700 text-white"
-                      : "bg-zinc-100 text-zinc-600"
+                      ? "bg-emerald-700 dark:bg-emerald-600 text-white"
+                      : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
                   }`}
                 >
                   <Building2 className="w-3.5 h-3.5" />
                 </div>
-                <div className="font-bold text-xs sm:text-sm text-zinc-900">
+                <div className="font-bold text-xs sm:text-sm text-zinc-900 dark:text-zinc-100">
                   {t.taxpayerCardEmployee}
                 </div>
               </div>
-              <p className="text-[11px] text-zinc-500 leading-snug">
+              <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
                 {t.taxpayerCardEmployeeSub}
               </p>
               {appMode === "employee" && (
-                <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-emerald-600" />
+                <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-500" />
               )}
             </button>
           </div>
@@ -263,23 +300,23 @@ export default function Home() {
         )}
 
         {/* Compact Statutory Educational Disclaimer */}
-        <div className="p-4 sm:p-5 bg-white border border-zinc-200/90 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-zinc-600 shadow-2xs">
+        <div className="p-4 sm:p-5 bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-zinc-600 dark:text-zinc-400 shadow-2xs">
           <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-700 border border-amber-200/60 flex items-center justify-center shrink-0 mt-0.5">
-              <ShieldAlert className="w-4 h-4 text-amber-600" />
+            <div className="w-8 h-8 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 border border-amber-200/60 dark:border-amber-800/60 flex items-center justify-center shrink-0 mt-0.5">
+              <ShieldAlert className="w-4 h-4 text-amber-600 dark:text-amber-400" />
             </div>
             <div className="space-y-1">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-bold text-zinc-900 text-xs sm:text-sm">
+                <span className="font-bold text-zinc-900 dark:text-zinc-100 text-xs sm:text-sm">
                   {lang === "en"
                     ? "Important Note & Educational Disclaimer"
                     : "Pormal na Paunawa sa Katumpakan at Paggamit"}
                 </span>
-                <span className="text-[10px] font-semibold bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded-full border border-zinc-200">
+                <span className="text-[10px] font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2 py-0.5 rounded-full border border-zinc-200 dark:border-zinc-700">
                   TRAIN Law • EOPT Act
                 </span>
               </div>
-              <p className="text-[11px] sm:text-xs text-zinc-600 leading-relaxed max-w-3xl">
+              <p className="text-[11px] sm:text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-3xl">
                 {lang === "en"
                   ? "This tool is for estimation and planning purposes only. It does not constitute official tax advice or file returns directly with the Bureau of Internal Revenue (BIR). Always verify your actual tax dues using official BIR forms (eBIRForms) or consult an accredited CPA."
                   : "Ang kalkulador na ito ay para sa pagpaplano at pagtatantiya lamang. Hindi ito opisyal na payong legal o CPA advice at hindi direktang nagpa-file sa BIR. Laging patunayan ang iyong babayaran gamit ang opisyal na eBIRForms o kumonsulta sa lisensyadong CPA."}
@@ -290,7 +327,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() => setIsGlossaryModalOpen(true)}
-            className="shrink-0 px-3.5 py-2 bg-zinc-900 hover:bg-black text-white font-semibold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-xs transition"
+            className="shrink-0 px-3.5 py-2 bg-zinc-900 hover:bg-black dark:bg-zinc-800 dark:hover:bg-zinc-700 text-white font-semibold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-xs transition"
           >
             <Scale className="w-3.5 h-3.5 text-zinc-300" />
             <span>{lang === "en" ? "Legal Citations & Terms" : "Batas at Terminolohiya"}</span>
@@ -334,15 +371,15 @@ export default function Home() {
       />
 
       {/* Footer */}
-      <footer className="mt-12 border-t border-zinc-200/80 bg-white py-8 text-center text-xs text-zinc-500">
+      <footer className="mt-12 border-t border-zinc-200/80 dark:border-zinc-800 bg-white dark:bg-zinc-950 py-8 text-center text-xs text-zinc-500 dark:text-zinc-400 transition-colors duration-200">
         <div className="max-w-6xl mx-auto px-4 space-y-3">
           {/* Official Tax Portals & Downloads */}
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-xs text-zinc-500 pt-1">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-xs text-zinc-500 dark:text-zinc-400 pt-1">
             <a
               href="https://www.bir.gov.ph/ebirforms"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 font-semibold text-emerald-800 hover:text-emerald-900 hover:underline"
+              className="inline-flex items-center gap-1 font-semibold text-emerald-800 dark:text-emerald-400 hover:text-emerald-900 dark:hover:text-emerald-300 hover:underline"
             >
               <span>{lang === "en" ? "Official BIR eBIRForms Portal" : "Opisyal na BIR eBIRForms Portal"}</span>
               <ExternalLink className="w-3 h-3" />
@@ -351,55 +388,55 @@ export default function Home() {
             <a
               href="/forms/Offline-eBIRForms-Package-v7.9.4.2.zip"
               download="Offline-eBIRForms-Package-v7.9.4.2.zip"
-              className="inline-flex items-center gap-1 font-semibold text-zinc-700 hover:text-zinc-900 hover:underline"
+              className="inline-flex items-center gap-1 font-semibold text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline"
             >
-              <Download className="w-3 h-3 text-zinc-500" />
+              <Download className="w-3 h-3 text-zinc-500 dark:text-zinc-400" />
               <span>{lang === "en" ? "Offline Forms (.zip)" : "Offline Forms (.zip)"}</span>
             </a>
           </div>
 
           {/* Legal Navigation Links */}
-          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium text-zinc-600">
-            <Link href="/terms" className="hover:text-zinc-900 transition underline underline-offset-2">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium text-zinc-600 dark:text-zinc-400">
+            <Link href="/terms" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition underline underline-offset-2">
               {lang === "en" ? "Terms of Service" : "Tuntunin ng Paggamit"}
             </Link>
             <span>•</span>
-            <Link href="/privacy" className="hover:text-zinc-900 transition underline underline-offset-2">
+            <Link href="/privacy" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition underline underline-offset-2">
               {lang === "en" ? "Privacy Policy" : "Patakaran sa Privacy"}
             </Link>
             <span>•</span>
             <button
               type="button"
               onClick={() => setIsGlossaryModalOpen(true)}
-              className="hover:text-zinc-900 transition underline underline-offset-2 cursor-pointer flex items-center gap-1"
+              className="hover:text-zinc-900 dark:hover:text-zinc-100 transition underline underline-offset-2 cursor-pointer flex items-center gap-1"
             >
-              <Scale className="w-3 h-3 text-zinc-500" />
+              <Scale className="w-3 h-3 text-zinc-500 dark:text-zinc-400" />
               <span>{lang === "en" ? "Statutory Citations & Glossary" : "Mga Batas at Talahulugan"}</span>
             </button>
             <span>•</span>
             <button
               type="button"
               onClick={() => setIsCookieSettingsOpen(true)}
-              className="hover:text-zinc-900 transition underline underline-offset-2 cursor-pointer flex items-center gap-1"
+              className="hover:text-zinc-900 dark:hover:text-zinc-100 transition underline underline-offset-2 cursor-pointer flex items-center gap-1"
             >
-              <Cookie className="w-3 h-3 text-zinc-500" />
+              <Cookie className="w-3 h-3 text-zinc-500 dark:text-zinc-400" />
               <span>{lang === "en" ? "Cookie Preferences" : "Kagustuhan sa Cookies"}</span>
             </button>
           </div>
 
           {/* Creator Credit: Made by DEVjules */}
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2">
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-zinc-100 hover:bg-emerald-50 hover:border-emerald-200 border border-zinc-200/80 text-xs font-semibold text-zinc-800 transition shadow-2xs">
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:border-emerald-200 dark:hover:border-emerald-800 border border-zinc-200/80 dark:border-zinc-800 text-xs font-semibold text-zinc-800 dark:text-zinc-200 transition shadow-2xs">
               <span>{t.footerMadeBy}</span>
             </div>
-            <span className="hidden sm:inline text-zinc-300">•</span>
-            <span className="text-xs text-zinc-500 font-medium">{t.footerMadeBySub}</span>
+            <span className="hidden sm:inline text-zinc-300 dark:text-zinc-700">•</span>
+            <span className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">{t.footerMadeBySub}</span>
           </div>
 
-          <p className="flex items-center justify-center gap-1 text-zinc-500">
+          <p className="flex items-center justify-center gap-1 text-zinc-500 dark:text-zinc-400">
             {t.footerBuiltFor}
           </p>
-          <p className="text-[11px] text-zinc-400 max-w-2xl mx-auto">
+          <p className="text-[11px] text-zinc-400 dark:text-zinc-500 max-w-2xl mx-auto">
             {t.footerDisclaimer}
           </p>
         </div>

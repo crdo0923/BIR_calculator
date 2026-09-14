@@ -1,35 +1,65 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, Scale, ShieldAlert } from "lucide-react";
+import { ArrowLeft, Scale, ShieldAlert, Sun, Moon } from "lucide-react";
 import { Language } from "@/lib/translations";
 
 export default function TermsOfServicePage() {
   const [lang, setLang] = useState<Language>("en");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
   const isEn = lang === "en";
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isDark = document.documentElement.classList.contains("dark");
+      setTheme(isDark ? "dark" : "light");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    if (nextTheme === "dark") {
+      document.documentElement.classList.add("dark");
+      try { localStorage.setItem("bir_calc_theme", "dark"); } catch {}
+    } else {
+      document.documentElement.classList.remove("dark");
+      try { localStorage.setItem("bir_calc_theme", "light"); } catch {}
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-zinc-50 text-zinc-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 flex flex-col">
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans selection:bg-emerald-100 dark:selection:bg-emerald-950 selection:text-emerald-900 dark:selection:text-emerald-200 flex flex-col transition-colors">
       {/* Top Bar */}
-      <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-zinc-200 shadow-xs">
+      <header className="sticky top-0 z-30 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 shadow-xs">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-zinc-600 hover:text-zinc-900 transition"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>{isEn ? "Back to Calculator" : "Bumalik sa Calculator"}</span>
           </Link>
 
           <div className="flex items-center gap-2">
+            {/* Theme Switcher */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              className="w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition flex items-center justify-center cursor-pointer border border-zinc-200 dark:border-zinc-700"
+            >
+              {theme === "dark" ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-600" />}
+            </button>
+
             {/* Language Switcher */}
-            <div className="flex items-center bg-zinc-100 p-0.5 rounded-xl border border-zinc-200">
+            <div className="flex items-center bg-zinc-100 dark:bg-zinc-800 p-0.5 rounded-xl border border-zinc-200 dark:border-zinc-700">
               <button
                 type="button"
                 onClick={() => setLang("en")}
                 className={`px-2 py-1 rounded-lg text-[11px] font-bold transition cursor-pointer ${
-                  lang === "en" ? "bg-white text-zinc-900 shadow-xs" : "text-zinc-500 hover:text-zinc-900"
+                  lang === "en" ? "bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-xs" : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
                 }`}
               >
                 🇺🇸 EN
@@ -38,7 +68,7 @@ export default function TermsOfServicePage() {
                 type="button"
                 onClick={() => setLang("tl")}
                 className={`px-2 py-1 rounded-lg text-[11px] font-bold transition cursor-pointer ${
-                  lang === "tl" ? "bg-white text-zinc-900 shadow-xs" : "text-zinc-500 hover:text-zinc-900"
+                  lang === "tl" ? "bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-xs" : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
                 }`}
               >
                 🇵🇭 TL
@@ -50,17 +80,17 @@ export default function TermsOfServicePage() {
 
       {/* Main Legal Content */}
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <div className="bg-white rounded-2xl border border-zinc-200/80 p-6 sm:p-10 shadow-xs space-y-8">
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200/80 dark:border-zinc-800 p-6 sm:p-10 shadow-xs space-y-8">
           {/* Header */}
-          <div className="space-y-2 border-b border-zinc-100 pb-6">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-zinc-100 text-zinc-700">
+          <div className="space-y-2 border-b border-zinc-100 dark:border-zinc-800 pb-6">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700">
               <Scale className="w-3.5 h-3.5" />
               <span>{isEn ? "Legal Agreement" : "Legal na Kasunduan"}</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight">
               {isEn ? "Terms of Service" : "Mga Tuntunin ng Paggamit"}
             </h1>
-            <p className="text-xs sm:text-sm text-zinc-500">
+            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
               {isEn
                 ? "Last updated: 2026. Effective for all users of BIR Co-Pilot."
                 : "Huling na-update: 2026. May bisa para sa lahat ng gumagamit ng BIR Co-Pilot."}
@@ -68,12 +98,12 @@ export default function TermsOfServicePage() {
           </div>
 
           {/* Prominent Legal Disclaimer Callout */}
-          <div className="p-4 sm:p-5 bg-amber-50 border border-amber-200/80 rounded-2xl space-y-2 text-amber-950">
-            <div className="flex items-center gap-2 font-bold text-sm text-amber-900">
-              <ShieldAlert className="w-5 h-5 text-amber-700 shrink-0" />
+          <div className="p-4 sm:p-5 bg-amber-50 dark:bg-amber-950/40 border border-amber-200/80 dark:border-amber-800/60 rounded-2xl space-y-2 text-amber-950 dark:text-amber-200">
+            <div className="flex items-center gap-2 font-bold text-sm text-amber-900 dark:text-amber-300">
+              <ShieldAlert className="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0" />
               <span>{isEn ? "Educational & Estimation Purpose Only" : "Pang-Edukasyon at Tantiya Lamang"}</span>
             </div>
-            <p className="text-xs sm:text-sm text-amber-900/90 leading-relaxed">
+            <p className="text-xs sm:text-sm text-amber-900/90 dark:text-amber-300/90 leading-relaxed">
               {isEn
                 ? "BIR Co-Pilot is an open-access calculation and planning aid built to help Filipino taxpayers understand the mechanics of Republic Act No. 10963 (TRAIN Law) and Republic Act No. 11976 (EOPT Act). This application does NOT provide formal certified tax, legal, or accounting advice, and must not be used as a substitute for consultation with a licensed Certified Public Accountant (CPA) or direct verification with the Bureau of Internal Revenue (BIR)."
                 : "Ang BIR Co-Pilot ay isang bukas na kagamitan upang tulungan ang mga taxpayer sa Pilipinas na maunawaan ang TRAIN Law (RA 10963) at EOPT Act (RA 11976). Hindi ito pormal na payong legal o accounting mula sa Certified Public Accountant (CPA). Huwag itong gamitin bilang kapalit sa propesyonal na payo ng CPA o direktang kumpirmasyon mula sa Bureau of Internal Revenue (BIR)."}
@@ -81,11 +111,11 @@ export default function TermsOfServicePage() {
           </div>
 
           {/* Terms Articles */}
-          <div className="space-y-6 text-xs sm:text-sm leading-relaxed text-zinc-700">
+          <div className="space-y-6 text-xs sm:text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
             {/* 1. Acceptance */}
             <section className="space-y-2">
-              <h2 className="text-base font-bold text-zinc-900 flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-zinc-100 text-zinc-800 text-xs flex items-center justify-center font-bold">
+              <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs flex items-center justify-center font-bold border border-zinc-200/60 dark:border-zinc-700">
                   1
                 </span>
                 {isEn ? "Acceptance of Terms" : "Pagtanggap sa mga Tuntunin"}
@@ -99,8 +129,8 @@ export default function TermsOfServicePage() {
 
             {/* 2. Nature of the Calculations */}
             <section className="space-y-2">
-              <h2 className="text-base font-bold text-zinc-900 flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-zinc-100 text-zinc-800 text-xs flex items-center justify-center font-bold">
+              <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs flex items-center justify-center font-bold border border-zinc-200/60 dark:border-zinc-700">
                   2
                 </span>
                 {isEn ? "Accuracy and Nature of Calculations" : "Katumpakan at Katangian ng Pagkwenta"}
@@ -119,8 +149,8 @@ export default function TermsOfServicePage() {
 
             {/* 3. No CPA-Client Relationship */}
             <section className="space-y-2">
-              <h2 className="text-base font-bold text-zinc-900 flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-zinc-100 text-zinc-800 text-xs flex items-center justify-center font-bold">
+              <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs flex items-center justify-center font-bold border border-zinc-200/60 dark:border-zinc-700">
                   3
                 </span>
                 {isEn ? "No Professional or Fiduciary Relationship" : "Walang Propesyonal na Ugnayan (No CPA-Client)"}
@@ -134,8 +164,8 @@ export default function TermsOfServicePage() {
 
             {/* 4. Limitation of Liability */}
             <section className="space-y-2">
-              <h2 className="text-base font-bold text-zinc-900 flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-zinc-100 text-zinc-800 text-xs flex items-center justify-center font-bold">
+              <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs flex items-center justify-center font-bold border border-zinc-200/60 dark:border-zinc-700">
                   4
                 </span>
                 {isEn ? "Limitation of Liability" : "Limitasyon ng Pananagutan"}
@@ -149,8 +179,8 @@ export default function TermsOfServicePage() {
 
             {/* 5. In-Browser Privacy */}
             <section className="space-y-2">
-              <h2 className="text-base font-bold text-zinc-900 flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-zinc-100 text-zinc-800 text-xs flex items-center justify-center font-bold">
+              <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs flex items-center justify-center font-bold border border-zinc-200/60 dark:border-zinc-700">
                   5
                 </span>
                 {isEn ? "Data Privacy & In-Browser Execution" : "Data Privacy at Paggamit sa Browser"}
@@ -164,8 +194,8 @@ export default function TermsOfServicePage() {
 
             {/* 6. Governing Law */}
             <section className="space-y-2">
-              <h2 className="text-base font-bold text-zinc-900 flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-zinc-100 text-zinc-800 text-xs flex items-center justify-center font-bold">
+              <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs flex items-center justify-center font-bold border border-zinc-200/60 dark:border-zinc-700">
                   6
                 </span>
                 {isEn ? "Governing Law" : "Umiiral na Batas"}
@@ -179,17 +209,17 @@ export default function TermsOfServicePage() {
           </div>
 
           {/* Footer Navigation */}
-          <div className="pt-6 border-t border-zinc-100 flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-500">
+          <div className="pt-6 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-400">
             <div className="flex items-center gap-2">
               <span>© 2026 BIR Co-Pilot PH</span>
               <span>•</span>
-              <span className="font-medium text-zinc-700">Made with ❤️ by <strong>DEVjules</strong></span>
+              <span className="font-medium text-zinc-700 dark:text-zinc-300">Made with ❤️ by <strong>DEVjules</strong></span>
             </div>
             <div className="flex items-center gap-3">
-              <Link href="/privacy" className="hover:text-zinc-900 underline">
+              <Link href="/privacy" className="hover:text-zinc-900 dark:hover:text-zinc-100 underline">
                 {isEn ? "Privacy Policy" : "Patakaran sa Privacy"}
               </Link>
-              <Link href="/" className="hover:text-zinc-900 underline">
+              <Link href="/" className="hover:text-zinc-900 dark:hover:text-zinc-100 underline">
                 {isEn ? "Open Calculator" : "Buksan ang Calculator"}
               </Link>
             </div>

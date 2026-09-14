@@ -407,18 +407,18 @@ export function RegimeExplainerFAQ({ lang }: RegimeExplainerFAQProps) {
       ];
 
   return (
-    <div className="bg-white rounded-2xl border border-zinc-200/80 p-4 sm:p-6 shadow-xs space-y-4">
+    <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200/80 dark:border-zinc-800 p-4 sm:p-6 shadow-xs space-y-4 transition-colors duration-200">
       {/* Header */}
-      <div className="flex items-center justify-between pb-2 border-b border-zinc-100">
+      <div className="flex items-center justify-between pb-2 border-b border-zinc-100 dark:border-zinc-800">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-zinc-100 text-zinc-700 flex items-center justify-center">
-            <HelpCircle className="w-4 h-4 text-zinc-600" />
+          <div className="w-7 h-7 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 flex items-center justify-center">
+            <HelpCircle className="w-4 h-4 text-zinc-600 dark:text-zinc-400" />
           </div>
           <div>
-            <h3 className="text-sm sm:text-base font-bold text-zinc-900">
+            <h3 className="text-sm sm:text-base font-bold text-zinc-900 dark:text-zinc-100">
               {isEn ? "Understanding 8% vs Graduated Rates" : "Paliwanag: 8% Flat Rate vs Graduated"}
             </h3>
-            <p className="text-[11px] text-zinc-500">
+            <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
               {isEn
                 ? "Simple, headache-free guide. Click any question to expand."
                 : "Simpleng paliwanag nang hindi masakit sa ulo. Pindutin para buksan."}
@@ -426,7 +426,7 @@ export function RegimeExplainerFAQ({ lang }: RegimeExplainerFAQProps) {
           </div>
         </div>
 
-        <span className="text-[11px] font-semibold text-zinc-500 bg-zinc-100 px-2 py-0.5 rounded-md hidden sm:inline-block">
+        <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded-md hidden sm:inline-block">
           {isEn ? `${faqList.length} FAQs` : `${faqList.length} Katanungan`}
         </span>
       </div>
@@ -440,7 +440,9 @@ export function RegimeExplainerFAQ({ lang }: RegimeExplainerFAQProps) {
             <div
               key={idx}
               className={`rounded-xl border transition-colors ${
-                isOpen ? "border-zinc-300 bg-zinc-50/50" : "border-zinc-200/70 hover:border-zinc-300 bg-white"
+                isOpen
+                  ? "border-zinc-300 dark:border-zinc-700 bg-zinc-50/50 dark:bg-zinc-800/40"
+                  : "border-zinc-200/70 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-white dark:bg-zinc-900"
               }`}
             >
               <button
@@ -449,28 +451,28 @@ export function RegimeExplainerFAQ({ lang }: RegimeExplainerFAQProps) {
                 className="w-full text-left p-3 sm:p-3.5 flex items-start justify-between gap-3 cursor-pointer select-none"
               >
                 <div className="space-y-1 pr-1">
-                  <div className="text-xs sm:text-sm font-bold text-zinc-900 flex items-center gap-2">
-                    <span className="w-4 h-4 rounded-full bg-zinc-100 text-zinc-700 text-[10px] flex items-center justify-center font-bold shrink-0">
+                  <div className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-[10px] flex items-center justify-center font-bold shrink-0">
                       {idx + 1}
                     </span>
                     <span>{item.question}</span>
                   </div>
                   {!isOpen && (
-                    <p className="text-[11px] text-zinc-500 pl-6 line-clamp-1">
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 pl-6 line-clamp-1">
                       {item.shortAnswer}
                     </p>
                   )}
                 </div>
 
-                <div className="p-1 text-zinc-400 shrink-0">
+                <div className="p-1 text-zinc-400 dark:text-zinc-500 shrink-0">
                   <ChevronDown
-                    className={`w-4 h-4 transition-transform duration-200 ${isOpen ? "rotate-180 text-zinc-900" : ""}`}
+                    className={`w-4 h-4 transition-transform duration-200 ${isOpen ? "rotate-180 text-zinc-900 dark:text-zinc-100" : ""}`}
                   />
                 </div>
               </button>
 
               {isOpen && (
-                <div className="px-3 pb-3.5 sm:px-4 sm:pb-4 border-t border-zinc-200/50">
+                <div className="px-3 pb-3.5 sm:px-4 sm:pb-4 border-t border-zinc-200/50 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300">
                   {item.details}
                 </div>
               )}

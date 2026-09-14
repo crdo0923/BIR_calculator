@@ -1,8 +1,11 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 *{ -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility }
 :root{ --background:#ffffff; --foreground:#18181b }
+.dark{ --background:#09090b; --foreground:#f4f4f5 }
 body{ background:var(--background); color:var(--foreground); font-family:var(--font-inter),system-ui,sans-serif }
 .card{border:1px solid #e4e4e7; background:#fff; border-radius:16px}
+.dark .card{border-color:#27272a; background:#18181b}
 .pill{border-radius:999px}
 .num{font-variant-numeric:tabular-nums; letter-spacing:-0.04em}
 .font-serif{font-family:var(--font-serif),Georgia,serif}

@@ -386,23 +386,23 @@ export function TaxGlossaryModal({ isOpen, onClose, lang }: TaxGlossaryModalProp
       className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-zinc-950/70 backdrop-blur-md animate-in fade-in duration-200"
     >
       <div
-        className="bg-white border border-zinc-200/90 rounded-t-3xl sm:rounded-3xl w-full max-w-3xl max-h-[92vh] sm:max-h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-in slide-in-from-bottom-6 sm:zoom-in-95 duration-200"
+        className="bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800 rounded-t-3xl sm:rounded-3xl w-full max-w-3xl max-h-[92vh] sm:max-h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-in slide-in-from-bottom-6 sm:zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Mobile Drag Indicator */}
-        <div className="w-12 h-1.5 bg-zinc-300 rounded-full mx-auto my-2.5 sm:hidden shrink-0" />
+        <div className="w-12 h-1.5 bg-zinc-300 dark:bg-zinc-700 rounded-full mx-auto my-2.5 sm:hidden shrink-0" />
 
         {/* Header */}
-        <div className="px-5 sm:px-6 py-4 border-b border-zinc-100 flex items-center justify-between bg-white/95 backdrop-blur-md sticky top-0 z-10">
+        <div className="px-5 sm:px-6 py-4 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md sticky top-0 z-10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-zinc-900 text-white flex items-center justify-center shadow-xs shrink-0">
+            <div className="w-10 h-10 rounded-2xl bg-zinc-900 dark:bg-zinc-800 text-white flex items-center justify-center shadow-xs shrink-0 border border-zinc-800 dark:border-zinc-700">
               <Scale className="w-5 h-5 text-sky-400" />
             </div>
             <div>
-              <h3 id="glossary-modal-title" className="text-base sm:text-lg font-bold text-zinc-900 tracking-tight">
+              <h3 id="glossary-modal-title" className="text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
                 {isEn ? "Philippine Tax Terms & Statutory Citations" : "Talahulugan ng Buwis at Mga Batas ng Pilipinas"}
               </h3>
-              <p className="text-xs text-zinc-500 font-medium">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">
                 {isEn
                   ? "Accurate legal definitions and official government sources (2024–2026)"
                   : "Tumpak na legal na paliwanag at opisyal na batas ng gobyerno (2024–2026)"}
@@ -414,15 +414,15 @@ export function TaxGlossaryModal({ isOpen, onClose, lang }: TaxGlossaryModalProp
             type="button"
             onClick={onClose}
             aria-label="Close modal"
-            className="w-8 h-8 rounded-full bg-zinc-100 hover:bg-zinc-200 active:scale-95 text-zinc-500 hover:text-zinc-800 flex items-center justify-center transition cursor-pointer"
+            className="w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 active:scale-95 text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 flex items-center justify-center transition cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Search Bar */}
-        <div className="px-5 sm:px-6 py-2.5 bg-zinc-50/90 border-b border-zinc-100 flex items-center gap-2">
-          <Search className="w-4 h-4 text-zinc-400 shrink-0" />
+        <div className="px-5 sm:px-6 py-2.5 bg-zinc-50/90 dark:bg-zinc-950/90 border-b border-zinc-100 dark:border-zinc-800 flex items-center gap-2">
+          <Search className="w-4 h-4 text-zinc-400 dark:text-zinc-500 shrink-0" />
           <input
             type="text"
             value={searchQuery}
@@ -432,13 +432,13 @@ export function TaxGlossaryModal({ isOpen, onClose, lang }: TaxGlossaryModalProp
                 ? "Search tax terms, acronyms, or Republic Acts..."
                 : "Maghanap ng terminolohiya, acronym, o batas..."
             }
-            className="w-full bg-transparent text-xs text-zinc-900 placeholder:text-zinc-400 outline-none"
+            className="w-full bg-transparent text-xs text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 outline-none"
           />
           {searchQuery && (
             <button
               type="button"
               onClick={() => setSearchQuery("")}
-              className="text-zinc-400 hover:text-zinc-700 p-0.5 rounded-full cursor-pointer"
+              className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 p-0.5 rounded-full cursor-pointer"
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -446,17 +446,17 @@ export function TaxGlossaryModal({ isOpen, onClose, lang }: TaxGlossaryModalProp
         </div>
 
         {/* Tab Switcher */}
-        <div className="p-2 bg-zinc-100/70 border-b border-zinc-100 flex gap-1.5">
+        <div className="p-2 bg-zinc-100/70 dark:bg-zinc-950/70 border-b border-zinc-100 dark:border-zinc-800 flex gap-1.5">
           <button
             type="button"
             onClick={() => setActiveTab("terms")}
             className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer ${
               activeTab === "terms"
-                ? "bg-white text-zinc-900 shadow-xs"
-                : "text-zinc-600 hover:text-zinc-900 font-medium"
+                ? "bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-xs"
+                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 font-medium"
             }`}
           >
-            <BookOpen className="w-4 h-4 text-emerald-600" />
+            <BookOpen className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>
               {isEn ? `12 Key Terms (${filteredTerms.length})` : `12 Malalalim na Salita (${filteredTerms.length})`}
             </span>
@@ -467,11 +467,11 @@ export function TaxGlossaryModal({ isOpen, onClose, lang }: TaxGlossaryModalProp
             onClick={() => setActiveTab("citations")}
             className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer ${
               activeTab === "citations"
-                ? "bg-white text-zinc-900 shadow-xs"
-                : "text-zinc-600 hover:text-zinc-900 font-medium"
+                ? "bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-xs"
+                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 font-medium"
             }`}
           >
-            <Scale className="w-4 h-4 text-sky-600" />
+            <Scale className="w-4 h-4 text-sky-600 dark:text-sky-400" />
             <span>
               {isEn
                 ? `Statutory Citations (${filteredCitations.length})`
@@ -481,14 +481,14 @@ export function TaxGlossaryModal({ isOpen, onClose, lang }: TaxGlossaryModalProp
         </div>
 
         {/* Scrollable Content */}
-        <div className="px-5 sm:px-6 py-4 overflow-y-auto space-y-4 text-xs leading-relaxed text-zinc-700">
+        <div className="px-5 sm:px-6 py-4 overflow-y-auto space-y-4 text-xs leading-relaxed text-zinc-700 dark:text-zinc-300">
           {/* Prominent Educational Disclaimer Notice */}
-          <div className="p-4 bg-amber-50/80 border border-amber-200/80 rounded-2xl text-amber-900 space-y-1.5 shadow-2xs">
-            <div className="flex items-center gap-2 font-bold text-xs text-amber-950">
-              <ShieldCheck className="w-4 h-4 text-amber-700" />
+          <div className="p-4 bg-amber-50/80 dark:bg-amber-950/40 border border-amber-200/80 dark:border-amber-800/60 rounded-2xl text-amber-900 dark:text-amber-200 space-y-1.5 shadow-2xs">
+            <div className="flex items-center gap-2 font-bold text-xs text-amber-950 dark:text-amber-300">
+              <ShieldCheck className="w-4 h-4 text-amber-700 dark:text-amber-400" />
               <span>{isEn ? "Strict Educational & Planning Disclaimer" : "Pormal na Paunawa sa Paggamit"}</span>
             </div>
-            <p className="text-[11px] text-amber-800 leading-relaxed">
+            <p className="text-[11px] text-amber-800 dark:text-amber-300/90 leading-relaxed">
               {isEn
                 ? "BIR Co-Pilot is an independent educational calculation tool built according to Philippine tax statutes (RA 10963, RA 11976) and BIR regulations. It does NOT constitute formal tax, legal, or accounting advice, nor does it create a CPA-client relationship. If you have complex corporate structures, multi-employer income, or tax-exempt incentives (PEZA/BOI), always consult a licensed Certified Public Accountant (CPA) or the BIR."
                 : "Ang BIR Co-Pilot ay isang educational tool na batay sa Tax Code at mga Revenue Regulations ng Pilipinas. Hindi ito pormal na legal o CPA advice. Para sa mga espesyal na sitwasyon (tulad ng PEZA tax incentives o maraming employer sa iisang taon), kumonsulta sa lisensyadong Certified Public Accountant (CPA) o sa pinakamalapit na Revenue District Office (RDO)."}
@@ -499,8 +499,8 @@ export function TaxGlossaryModal({ isOpen, onClose, lang }: TaxGlossaryModalProp
             /* Tab 1: Terms List */
             <div className="space-y-3">
               {filteredTerms.length === 0 ? (
-                <div className="p-8 text-center text-zinc-500 space-y-1">
-                  <div className="font-bold text-zinc-700">
+                <div className="p-8 text-center text-zinc-500 dark:text-zinc-400 space-y-1">
+                  <div className="font-bold text-zinc-700 dark:text-zinc-300">
                     {isEn ? "No tax terms match your search" : "Walang terminolohiya na tumutugma"}
                   </div>
                   <div className="text-xs">
@@ -511,21 +511,21 @@ export function TaxGlossaryModal({ isOpen, onClose, lang }: TaxGlossaryModalProp
                 filteredTerms.map((term, i) => (
                   <div
                     key={term.id}
-                    className="p-4 bg-zinc-50/80 rounded-2xl border border-zinc-200/70 hover:border-zinc-300 transition space-y-2"
+                    className="p-4 bg-zinc-50/80 dark:bg-zinc-950/60 rounded-2xl border border-zinc-200/70 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition space-y-2"
                   >
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <h4 className="font-bold text-zinc-900 text-xs sm:text-sm flex items-center gap-2">
-                        <span className="w-5 h-5 rounded-full bg-zinc-200 text-zinc-700 text-[10px] flex items-center justify-center font-bold">
+                      <h4 className="font-bold text-zinc-900 dark:text-zinc-100 text-xs sm:text-sm flex items-center gap-2">
+                        <span className="w-5 h-5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-[10px] flex items-center justify-center font-bold">
                           {i + 1}
                         </span>
                         <span>{term.title}</span>
                       </h4>
-                      <span className="text-[10px] font-semibold bg-zinc-200/60 text-zinc-700 px-2.5 py-0.5 rounded-full border border-zinc-300/40">
+                      <span className="text-[10px] font-semibold bg-zinc-200/60 dark:bg-zinc-800/60 text-zinc-700 dark:text-zinc-300 px-2.5 py-0.5 rounded-full border border-zinc-300/40 dark:border-zinc-700">
                         {term.badge}
                       </span>
                     </div>
-                    <p className="font-medium text-zinc-800 text-[11px]">{term.summary}</p>
-                    <p className="text-zinc-600 text-[11px] leading-relaxed pt-2 border-t border-zinc-200/60">
+                    <p className="font-medium text-zinc-800 dark:text-zinc-200 text-[11px]">{term.summary}</p>
+                    <p className="text-zinc-600 dark:text-zinc-400 text-[11px] leading-relaxed pt-2 border-t border-zinc-200/60 dark:border-zinc-800">
                       {term.explanation}
                     </p>
                   </div>
@@ -536,8 +536,8 @@ export function TaxGlossaryModal({ isOpen, onClose, lang }: TaxGlossaryModalProp
             /* Tab 2: Legal Citations Table */
             <div className="space-y-3">
               {filteredCitations.length === 0 ? (
-                <div className="p-8 text-center text-zinc-500 space-y-1">
-                  <div className="font-bold text-zinc-700">
+                <div className="p-8 text-center text-zinc-500 dark:text-zinc-400 space-y-1">
+                  <div className="font-bold text-zinc-700 dark:text-zinc-300">
                     {isEn ? "No citations match your search" : "Walang batas na tumutugma"}
                   </div>
                   <div className="text-xs">
@@ -545,29 +545,29 @@ export function TaxGlossaryModal({ isOpen, onClose, lang }: TaxGlossaryModalProp
                   </div>
                 </div>
               ) : (
-                <div className="border border-zinc-200/90 rounded-2xl overflow-hidden shadow-2xs">
+                <div className="border border-zinc-200/90 dark:border-zinc-800 rounded-2xl overflow-hidden shadow-2xs">
                   <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse min-w-[500px]">
                       <thead>
-                        <tr className="bg-zinc-100 text-zinc-900 text-[11px] font-bold border-b border-zinc-200">
+                        <tr className="bg-zinc-100 dark:bg-zinc-800/80 text-zinc-900 dark:text-zinc-100 text-[11px] font-bold border-b border-zinc-200 dark:border-zinc-800">
                           <th className="p-3.5">Statute / Issuance</th>
                           <th className="p-3.5">Governing Agency</th>
                           <th className="p-3.5">Statutory Basis &amp; Mandate</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-zinc-200/70 text-[11px] bg-white">
+                      <tbody className="divide-y divide-zinc-200/70 dark:divide-zinc-800 text-[11px] bg-white dark:bg-zinc-900">
                         {filteredCitations.map((item, idx) => (
-                          <tr key={idx} className="hover:bg-zinc-50 transition-colors">
-                            <td className="p-3.5 align-top font-bold text-zinc-900">
+                          <tr key={idx} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
+                            <td className="p-3.5 align-top font-bold text-zinc-900 dark:text-zinc-100">
                               <div>{item.law}</div>
-                              <div className="text-[10px] font-normal text-zinc-500 mt-0.5">{item.name}</div>
+                              <div className="text-[10px] font-normal text-zinc-500 dark:text-zinc-400 mt-0.5">{item.name}</div>
                             </td>
-                            <td className="p-3.5 align-top text-zinc-600 font-medium">{item.agency}</td>
+                            <td className="p-3.5 align-top text-zinc-600 dark:text-zinc-300 font-medium">{item.agency}</td>
                             <td className="p-3.5 align-top space-y-1.5">
-                              <span className="inline-block px-2 py-0.5 bg-zinc-100 rounded-md text-[10px] font-mono text-zinc-800 font-semibold border border-zinc-200/50">
+                              <span className="inline-block px-2 py-0.5 bg-zinc-100 dark:bg-zinc-800 rounded-md text-[10px] font-mono text-zinc-800 dark:text-zinc-200 font-semibold border border-zinc-200/50 dark:border-zinc-700">
                                 {item.reference}
                               </span>
-                              <p className="text-zinc-600 leading-relaxed">{item.keyPoints}</p>
+                              <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{item.keyPoints}</p>
                             </td>
                           </tr>
                         ))}
@@ -581,11 +581,11 @@ export function TaxGlossaryModal({ isOpen, onClose, lang }: TaxGlossaryModalProp
         </div>
 
         {/* Sticky Footer */}
-        <div className="px-5 sm:px-6 py-3.5 border-t border-zinc-100 bg-zinc-50/95 backdrop-blur-md flex items-center justify-end sticky bottom-0 z-10">
+        <div className="px-5 sm:px-6 py-3.5 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/95 dark:bg-zinc-900/95 backdrop-blur-md flex items-center justify-end sticky bottom-0 z-10">
           <button
             type="button"
             onClick={onClose}
-            className="px-5 py-2 bg-zinc-900 hover:bg-black active:scale-95 text-white text-xs font-bold rounded-xl transition cursor-pointer shadow-xs"
+            className="px-5 py-2 bg-zinc-900 dark:bg-zinc-100 hover:bg-black dark:hover:bg-white active:scale-95 text-white dark:text-zinc-900 text-xs font-bold rounded-xl transition cursor-pointer shadow-xs"
           >
             {isEn ? "Close Reference" : "Isara ang Talahulugan"}
           </button>

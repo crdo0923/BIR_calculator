@@ -11,6 +11,9 @@ export const translations = {
     lawsGlossaryBtn: "Laws & Terms",
     headerMoreMenu: "More",
     headerPrivacySettings: "Privacy & Cookies",
+    themeToggle: "Toggle theme",
+    themeDark: "Dark mode",
+    themeLight: "Light mode",
 
     // Primary Taxpayer Selection
     taxpayerCardSelfEmployed: "Self-employed / Freelancer",
@@ -298,6 +301,9 @@ export const translations = {
     lawsGlossaryBtn: "Batas at Terms",
     headerMoreMenu: "Iba pa",
     headerPrivacySettings: "Privacy at Cookies",
+    themeToggle: "Palitan ang tema",
+    themeDark: "Dark mode",
+    themeLight: "Light mode",
 
     // Primary Taxpayer Selection
     taxpayerCardSelfEmployed: "Freelancer / Negosyo",
