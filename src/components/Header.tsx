@@ -76,7 +76,7 @@ export function Header({
                 <span className="text-base font-bold tracking-tight text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-800 dark:group-hover:text-emerald-400 transition">
                   {t.brandName}
                 </span>
-                <span className="inline-flex items-center px-1.5 py-0.2 rounded text-[10px] font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
+                <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
                   {t.countryTag}
                 </span>
               </div>

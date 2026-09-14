@@ -224,7 +224,7 @@ export function EBIRFormsModal({
               </h3>
               <div className="flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400">
                 <span>{isEn ? "Target form:" : "Kaukulang form:"}</span>
-                <span className="font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-200/60 dark:border-emerald-800/60">
+                <span className="font-bold text-emerald-600 dark:text-emerald-400">
                   {formName}
                 </span>
               </div>
@@ -282,10 +282,10 @@ export function EBIRFormsModal({
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <span
-                      className={`font-mono font-bold text-[11px] px-2 py-0.5 rounded-md ${
+                      className={`font-mono font-bold text-xs ${
                         item.highlight
-                          ? "bg-emerald-200/70 dark:bg-emerald-900/70 text-emerald-900 dark:text-emerald-200"
-                          : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200/50 dark:border-zinc-700"
+                          ? "text-emerald-700 dark:text-emerald-400 font-extrabold"
+                          : "text-zinc-500 dark:text-zinc-400"
                       }`}
                     >
                       {item.num}

@@ -298,7 +298,7 @@ export function IncomeConfig({
                     {t.cwtSectionTitle}
                   </label>
                 </div>
-                <span className="text-[10px] font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded border border-emerald-200/50 dark:border-emerald-800/50">
+                <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                   {t.deductibleBadge}
                 </span>
               </div>

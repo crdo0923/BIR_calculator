@@ -143,8 +143,8 @@ export default function Home() {
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-10 space-y-8 sm:space-y-10">
         {/* Hero Section: Immediate 3-Second Clarity */}
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-semibold bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-2xs text-zinc-600 dark:text-zinc-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-500" />
+          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400" />
             <span>{appMode === "freelance" ? t.heroFreelanceBadge : t.heroEmployeeBadge}</span>
           </div>
 
@@ -340,8 +340,8 @@ export default function Home() {
                     ? "Important Note & Educational Disclaimer"
                     : "Pormal na Paunawa sa Katumpakan at Paggamit"}
                 </span>
-                <span className="text-[10px] font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2 py-0.5 rounded-full border border-zinc-200 dark:border-zinc-700">
-                  TRAIN Law • EOPT Act
+                <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+                  • TRAIN Law & EOPT Act
                 </span>
               </div>
               <p className="text-[11px] sm:text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-3xl">
@@ -477,9 +477,9 @@ export default function Home() {
 
           {/* Creator Credit & GitHub Source Link */}
           <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 text-xs font-semibold text-zinc-800 dark:text-zinc-200 shadow-2xs">
-              <span>{t.footerMadeBy}</span>
-            </div>
+            <span className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+              {t.footerMadeBy}
+            </span>
             <span className="hidden sm:inline text-zinc-300 dark:text-zinc-700">•</span>
             <a
               href="https://github.com/crdo0923/BIR_calculator"

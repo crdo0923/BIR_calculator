@@ -520,7 +520,7 @@ export function TaxGlossaryModal({ isOpen, onClose, lang }: TaxGlossaryModalProp
                         </span>
                         <span>{term.title}</span>
                       </h4>
-                      <span className="text-[10px] font-semibold bg-zinc-200/60 dark:bg-zinc-800/60 text-zinc-700 dark:text-zinc-300 px-2.5 py-0.5 rounded-full border border-zinc-300/40 dark:border-zinc-700">
+                      <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
                         {term.badge}
                       </span>
                     </div>
@@ -564,7 +564,7 @@ export function TaxGlossaryModal({ isOpen, onClose, lang }: TaxGlossaryModalProp
                             </td>
                             <td className="p-3.5 align-top text-zinc-600 dark:text-zinc-300 font-medium">{item.agency}</td>
                             <td className="p-3.5 align-top space-y-1.5">
-                              <span className="inline-block px-2 py-0.5 bg-zinc-100 dark:bg-zinc-800 rounded-md text-[10px] font-mono text-zinc-800 dark:text-zinc-200 font-semibold border border-zinc-200/50 dark:border-zinc-700">
+                              <span className="inline-block text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400">
                                 {item.reference}
                               </span>
                               <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{item.keyPoints}</p>

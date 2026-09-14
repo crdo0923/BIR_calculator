@@ -35,7 +35,7 @@ export function ComparisonCards({ result, isMixed, hasExpenses, lang }: Comparis
           <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-800 dark:text-zinc-200">{t.compTableTitle}</h3>
           <p className="text-[11px] text-zinc-500 dark:text-zinc-400">{t.compTableSub}</p>
         </div>
-        <span className="text-[10.5px] font-semibold text-zinc-400 dark:text-zinc-500 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded self-start sm:self-auto">
+        <span className="text-xs font-semibold text-zinc-400 dark:text-zinc-500 self-start sm:self-auto">
           {t.valuesAnnual}
         </span>
       </div>
@@ -57,8 +57,8 @@ export function ComparisonCards({ result, isMixed, hasExpenses, lang }: Comparis
                 <div className="flex items-center justify-center gap-1">
                   <span>{t.tableCol8}</span>
                   {isWinner8 && (
-                    <span className="inline-flex items-center gap-0.5 text-[9px] bg-emerald-600 dark:bg-emerald-500 text-white px-1.5 py-0.2 rounded font-bold uppercase">
-                      <Check className="w-2.5 h-2.5" />
+                    <span className="inline-flex items-center gap-0.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase">
+                      <Check className="w-3 h-3" />
                       {t.tableRecommendedBadge}
                     </span>
                   )}
@@ -76,8 +76,8 @@ export function ComparisonCards({ result, isMixed, hasExpenses, lang }: Comparis
                 <div className="flex items-center justify-center gap-1">
                   <span>{t.tableColGradOSD}</span>
                   {isWinnerOSD && (
-                    <span className="inline-flex items-center gap-0.5 text-[9px] bg-emerald-600 dark:bg-emerald-500 text-white px-1.5 py-0.2 rounded font-bold uppercase">
-                      <Check className="w-2.5 h-2.5" />
+                    <span className="inline-flex items-center gap-0.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase">
+                      <Check className="w-3 h-3" />
                       {t.tableRecommendedBadge}
                     </span>
                   )}
@@ -96,8 +96,8 @@ export function ComparisonCards({ result, isMixed, hasExpenses, lang }: Comparis
                   <div className="flex items-center justify-center gap-1">
                     <span>{t.tableColGradItemized}</span>
                     {isWinnerItemized && (
-                      <span className="inline-flex items-center gap-0.5 text-[9px] bg-emerald-600 dark:bg-emerald-500 text-white px-1.5 py-0.2 rounded font-bold uppercase">
-                        <Check className="w-2.5 h-2.5" />
+                      <span className="inline-flex items-center gap-0.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase">
+                        <Check className="w-3 h-3" />
                         {t.tableRecommendedBadge}
                       </span>
                     )}

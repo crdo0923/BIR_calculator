@@ -103,7 +103,7 @@ export default function PrivacyPolicyPage() {
         <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200/80 dark:border-zinc-800 p-6 sm:p-10 shadow-xs space-y-8">
           {/* Header */}
           <div className="space-y-2 border-b border-zinc-100 dark:border-zinc-800 pb-6">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
               <span>{isEn ? "Privacy by Architecture" : "Disenyo ng Pribadong Arkitektura"}</span>
             </div>

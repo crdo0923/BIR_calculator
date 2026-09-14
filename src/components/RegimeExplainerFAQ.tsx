@@ -426,7 +426,7 @@ export function RegimeExplainerFAQ({ lang }: RegimeExplainerFAQProps) {
           </div>
         </div>
 
-        <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded-md hidden sm:inline-block">
+        <span className="text-xs font-semibold text-zinc-400 dark:text-zinc-500 hidden sm:inline-block">
           {isEn ? `${faqList.length} FAQs` : `${faqList.length} Katanungan`}
         </span>
       </div>

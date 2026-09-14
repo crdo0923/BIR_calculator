@@ -109,7 +109,7 @@ export function DownloadConfirmationModal({
             <FileText className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
             <span className="truncate">{summaryType || (isEn ? "Tax Computation Summary" : "Buod ng Buwis")}</span>
           </div>
-          <span className="shrink-0 font-mono text-[10px] font-semibold px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200">
+          <span className="shrink-0 font-mono text-xs font-bold text-zinc-500 dark:text-zinc-400">
             .TXT
           </span>
         </div>

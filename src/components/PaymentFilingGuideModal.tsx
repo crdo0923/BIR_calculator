@@ -274,7 +274,7 @@ export function PaymentFilingGuideModal({
                     </span>
                     <span>Maya App (Recommended)</span>
                   </div>
-                  <span className="text-[10px] bg-emerald-100/70 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 px-2.5 py-0.5 rounded-full font-bold border border-emerald-200/60 dark:border-emerald-800/60">
+                  <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
                     {isEn ? "Fastest & Lowest Fees" : "Pinakamabilis & Mababa ang Fee"}
                   </span>
                 </div>
@@ -337,7 +337,7 @@ export function PaymentFilingGuideModal({
                     </span>
                     <span>GCash App</span>
                   </div>
-                  <span className="text-[10px] bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2.5 py-0.5 rounded-full font-semibold border border-zinc-200/60 dark:border-zinc-700">
+                  <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
                     {isEn ? "Pay Bills Government" : "Pay Bills Government"}
                   </span>
                 </div>
@@ -471,7 +471,7 @@ export function PaymentFilingGuideModal({
                       className="p-2.5 bg-zinc-50/80 dark:bg-zinc-950/60 rounded-xl border border-zinc-200/70 dark:border-zinc-800 flex items-center justify-between hover:bg-zinc-100/80 dark:hover:bg-zinc-800/80 transition"
                     >
                       <span className="font-semibold text-zinc-800 dark:text-zinc-200 truncate pr-2">{bank.name}</span>
-                      <span className="font-mono text-[10px] font-bold text-zinc-500 dark:text-zinc-400 bg-white dark:bg-zinc-800 px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-700 shrink-0">
+                      <span className="font-mono text-xs font-bold text-zinc-400 dark:text-zinc-500 shrink-0">
                         {bank.code}
                       </span>
                     </div>

@@ -103,7 +103,7 @@ export default function TermsOfServicePage() {
         <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200/80 dark:border-zinc-800 p-6 sm:p-10 shadow-xs space-y-8">
           {/* Header */}
           <div className="space-y-2 border-b border-zinc-100 dark:border-zinc-800 pb-6">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700">
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-500 dark:text-zinc-400">
               <Scale className="w-3.5 h-3.5" />
               <span>{isEn ? "Legal Agreement" : "Legal na Kasunduan"}</span>
             </div>

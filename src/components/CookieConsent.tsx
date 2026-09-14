@@ -189,7 +189,7 @@ export function CookieConsent({ lang, forceOpen, onCloseForceOpen }: CookieConse
                   <span className="font-bold text-zinc-900 dark:text-zinc-100 text-xs sm:text-sm">
                     {isEn ? "1. Essential Local Storage" : "1. Mahalagang Local Storage"}
                   </span>
-                  <span className="text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-200/50 dark:border-emerald-800/60">
+                  <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
                     {isEn ? "Always Active" : "Palaging Aktibo"}
                   </span>
                 </div>

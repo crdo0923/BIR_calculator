@@ -96,7 +96,7 @@ export function EmployeeSalaryCalculator({
                 </div>
                 <h2 className="text-sm font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-200">{t.empMonthlyCompTitle}</h2>
               </div>
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+              <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
                 {t.empCategoryBadge}
               </span>
             </div>
@@ -154,7 +154,7 @@ export function EmployeeSalaryCalculator({
                         key={p.label}
                         type="button"
                         onClick={() => setSalaryDigits(String(p.value))}
-                        className={`text-xs px-3 py-1.5 rounded-full font-semibold transition border cursor-pointer ${
+                        className={`text-xs px-2.5 py-1.5 rounded-lg font-semibold transition border cursor-pointer ${
                           isSelected
                             ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 border-zinc-900 dark:border-zinc-100 shadow-xs"
                             : "bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 border-zinc-200/90 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 hover:text-zinc-900 dark:hover:text-zinc-100"
@@ -289,7 +289,7 @@ export function EmployeeSalaryCalculator({
                       <div className="mt-2 p-2.5 bg-white dark:bg-zinc-900 border border-sky-200/70 dark:border-sky-800/70 rounded-lg text-[10.5px] text-zinc-600 dark:text-zinc-400 space-y-1 leading-relaxed">
                         <div className="font-semibold text-zinc-800 dark:text-zinc-200 flex items-center justify-between mb-1">
                           <span>{t.deMinimisGuideDesc}</span>
-                          <span className="text-[9.5px] font-bold bg-sky-100 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 px-1.5 py-0.2 rounded">
+                          <span className="text-[10px] font-semibold text-sky-600 dark:text-sky-400">
                             {t.deMinimisGuideBadge}
                           </span>
                         </div>
@@ -427,8 +427,8 @@ export function EmployeeSalaryCalculator({
                 <div>
                   <div className="flex items-center gap-1.5">
                     <span className="font-semibold text-zinc-900 dark:text-zinc-100">{t.sssLabel}</span>
-                    <span className="text-[9.5px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">
-                      RA 11199
+                    <span className="text-[10px] font-semibold text-zinc-400 dark:text-zinc-500">
+                      • RA 11199
                     </span>
                   </div>
                   <div className="text-[11px] text-zinc-400 dark:text-zinc-500">
@@ -447,8 +447,8 @@ export function EmployeeSalaryCalculator({
                 <div>
                   <div className="flex items-center gap-1.5">
                     <span className="font-semibold text-zinc-900 dark:text-zinc-100">{t.philHealthLabel}</span>
-                    <span className="text-[9.5px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">
-                      RA 11223
+                    <span className="text-[10px] font-semibold text-zinc-400 dark:text-zinc-500">
+                      • RA 11223
                     </span>
                   </div>
                   <div className="text-[11px] text-zinc-400 dark:text-zinc-500">
@@ -465,8 +465,8 @@ export function EmployeeSalaryCalculator({
                 <div>
                   <div className="flex items-center gap-1.5">
                     <span className="font-semibold text-zinc-900 dark:text-zinc-100">{t.pagIbigLabel}</span>
-                    <span className="text-[9.5px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">
-                      RA 9679
+                    <span className="text-[10px] font-semibold text-zinc-400 dark:text-zinc-500">
+                      • RA 9679
                     </span>
                   </div>
                   <div className="text-[11px] text-zinc-400 dark:text-zinc-500">
@@ -491,8 +491,8 @@ export function EmployeeSalaryCalculator({
                 <div>
                   <div className="flex items-center gap-1.5">
                     <span className="font-semibold text-zinc-900 dark:text-zinc-100">{t.withholdingTaxLabel}</span>
-                    <span className="text-[9.5px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">
-                      RA 10963
+                    <span className="text-[10px] font-semibold text-zinc-400 dark:text-zinc-500">
+                      • RA 10963
                     </span>
                   </div>
                   <div className="text-[11px] text-zinc-400 dark:text-zinc-500">{t.withholdingTaxNote}</div>
@@ -526,13 +526,10 @@ export function EmployeeSalaryCalculator({
                   {t.thirteenthMonthTitle}
                 </h3>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300 border border-purple-200/80 dark:border-purple-800 px-2 py-0.5 rounded-full">
-                  PD 851 & RA 10963
-                </span>
-                <span className="text-[11px] font-semibold text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/60 border border-purple-200/60 dark:border-purple-800/60 px-2 py-0.5 rounded-full">
-                  {t.thirteenthMonthCap}
-                </span>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-purple-700 dark:text-purple-300">
+                <span>PD 851 & RA 10963</span>
+                <span className="text-purple-400 dark:text-purple-600">•</span>
+                <span>{t.thirteenthMonthCap}</span>
               </div>
             </div>
 
@@ -581,7 +578,7 @@ export function EmployeeSalaryCalculator({
                 </h3>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-semibold text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/60 border border-sky-200/60 dark:border-sky-800/60 px-2 py-0.5 rounded-full">
+                <span className="text-xs font-semibold text-sky-600 dark:text-sky-400">
                   {t.employerShareBadge}
                 </span>
                 <span className="text-zinc-400 dark:text-zinc-500">
@@ -659,7 +656,7 @@ export function EmployeeSalaryCalculator({
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="hidden sm:inline text-[11px] font-semibold text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/60 border border-sky-200/60 dark:border-sky-800/60 px-2.5 py-0.5 rounded-full">
+            <span className="hidden sm:inline text-xs font-semibold text-sky-600 dark:text-sky-400">
               {t.empStatutoryBadge}
             </span>
             <span className="text-zinc-400 dark:text-zinc-500">
@@ -675,7 +672,7 @@ export function EmployeeSalaryCalculator({
               <div className="p-3 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200/70 dark:border-zinc-800/80 rounded-xl space-y-1">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">{t.trainLawCiteTitle}</span>
-                  <span className="text-[9.5px] font-bold bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">BIR</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">BIR</span>
                 </div>
                 <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">{t.trainLawCiteDesc}</p>
               </div>
@@ -684,7 +681,7 @@ export function EmployeeSalaryCalculator({
               <div className="p-3 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200/70 dark:border-zinc-800/80 rounded-xl space-y-1">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">{t.pd851CiteTitle}</span>
-                  <span className="text-[9.5px] font-bold bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">DOLE</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">DOLE</span>
                 </div>
                 <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">{t.pd851CiteDesc}</p>
               </div>
@@ -693,7 +690,7 @@ export function EmployeeSalaryCalculator({
               <div className="p-3 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200/70 dark:border-zinc-800/80 rounded-xl space-y-1">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">{t.sssLawCiteTitle}</span>
-                  <span className="text-[9.5px] font-bold bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">SSS</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">SSS</span>
                 </div>
                 <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">{t.sssLawCiteDesc}</p>
               </div>
@@ -702,7 +699,7 @@ export function EmployeeSalaryCalculator({
               <div className="p-3 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200/70 dark:border-zinc-800/80 rounded-xl space-y-1">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">{t.philhealthCiteTitle}</span>
-                  <span className="text-[9.5px] font-bold bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">PhilHealth</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">PhilHealth</span>
                 </div>
                 <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">{t.philhealthCiteDesc}</p>
               </div>
@@ -711,7 +708,7 @@ export function EmployeeSalaryCalculator({
               <div className="p-3 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200/70 dark:border-zinc-800/80 rounded-xl space-y-1">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">{t.pagibigCiteTitle}</span>
-                  <span className="text-[9.5px] font-bold bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">HDMF</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">HDMF</span>
                 </div>
                 <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">{t.pagibigCiteDesc}</p>
               </div>
@@ -720,7 +717,7 @@ export function EmployeeSalaryCalculator({
               <div className="p-3 bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200/70 dark:border-zinc-800/80 rounded-xl space-y-1">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">{t.doleCiteTitle}</span>
-                  <span className="text-[9.5px] font-bold bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded border border-zinc-200 dark:border-zinc-700">DOLE</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">DOLE</span>
                 </div>
                 <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">{t.doleCiteDesc}</p>
               </div>

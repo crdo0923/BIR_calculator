@@ -97,8 +97,8 @@ export function DeadlinesCalendar({ is8Percent, lang }: DeadlinesCalendarProps) 
               <span className="text-[10.5px] uppercase font-bold text-emerald-400 tracking-wider">
                 {t.nextDeadlineLabel}
               </span>
-              <span className="text-[10px] bg-zinc-700 dark:bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded-full">
-                {nextDeadline.q}
+              <span className="text-xs font-semibold text-zinc-400">
+                • {nextDeadline.q}
               </span>
             </div>
             <div className="text-base sm:text-lg font-extrabold mt-0.5">
@@ -108,8 +108,8 @@ export function DeadlinesCalendar({ is8Percent, lang }: DeadlinesCalendarProps) 
           </div>
 
           <div className="text-right shrink-0">
-            <div className="inline-flex items-center gap-1 bg-white dark:bg-zinc-100 text-zinc-900 px-3 py-1 rounded-full text-xs font-black shadow-xs">
-              <Clock className="w-3.5 h-3.5 text-emerald-600" />
+            <div className="inline-flex items-center gap-1.5 text-xs font-black text-emerald-400">
+              <Clock className="w-4 h-4 text-emerald-400" />
               <span>
                 {nextDays == null
                   ? "—"
@@ -155,12 +155,12 @@ export function DeadlinesCalendar({ is8Percent, lang }: DeadlinesCalendarProps) 
               <div className="flex items-center justify-between">
                 <span className="font-bold text-zinc-900 dark:text-zinc-100">{d.form}</span>
                 <span
-                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                  className={`text-xs font-bold ${
                     isPast
-                      ? "bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
+                      ? "text-zinc-400 dark:text-zinc-500"
                       : isUpcoming
-                      ? "bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300"
-                      : "bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300"
+                      ? "text-amber-600 dark:text-amber-400"
+                      : "text-emerald-600 dark:text-emerald-400"
                   }`}
                 >
                   {isPast ? (lang === "en" ? "Past" : "Nakalipas") : days === 0 ? (lang === "en" ? "Today" : "Ngayon") : `${days}d left`}

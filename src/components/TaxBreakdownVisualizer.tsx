@@ -48,8 +48,8 @@ export function TaxBreakdownVisualizer({ result, grossAnnual, lang }: TaxBreakdo
               <span className="font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
                 8% Flat Rate
                 {result.winner === "8%" && (
-                  <span className="text-[10px] bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-bold px-1.5 py-0.2 rounded">
-                    {t.higherTakeHomeBadge}
+                  <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                    • {t.higherTakeHomeBadge}
                   </span>
                 )}
               </span>
@@ -94,8 +94,8 @@ export function TaxBreakdownVisualizer({ result, grossAnnual, lang }: TaxBreakdo
             <span className="font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
               Graduated + OSD
               {result.winner === "graduated-OSD" && (
-                <span className="text-[10px] bg-sky-100 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 font-bold px-1.5 py-0.2 rounded">
-                  {t.higherTakeHomeBadge}
+                <span className="text-xs font-bold text-sky-600 dark:text-sky-400">
+                  • {t.higherTakeHomeBadge}
                 </span>
               )}
             </span>
