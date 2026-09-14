@@ -16,6 +16,15 @@ export const translations = {
     themeLight: "Light mode",
     sourceCode: "GitHub",
     sourceCodeLabel: "Source Code",
+    starModalBadge: "Open Source Community",
+    starModalTitle: "Support BIR Co-Pilot on GitHub",
+    starModalSubtitle: "A small star makes a huge difference!",
+    starModalDescription:
+      "Before you explore the source code repository, please consider giving BIR Co-Pilot a star (★) on GitHub. Your support increases visibility so more Filipino freelancers, remote professionals, employees, and small business owners can access this free, 100% private, and offline-capable tax utility.",
+    starModalRepoDetails: "Next.js 16 • Tailwind CSS v4 • TypeScript • MIT License • Zero Server Telemetry",
+    starModalPrimaryBtn: "Star on GitHub & Proceed",
+    starModalDirectBtn: "Continue directly to GitHub",
+    starModalCancelBtn: "Cancel",
 
     // Primary Taxpayer Selection
     taxpayerCardSelfEmployed: "Self-employed / Freelancer",
@@ -308,6 +317,15 @@ export const translations = {
     themeLight: "Light mode",
     sourceCode: "GitHub",
     sourceCodeLabel: "Source Code",
+    starModalBadge: "Komunidad ng Open Source",
+    starModalTitle: "Suportahan ang BIR Co-Pilot sa GitHub",
+    starModalSubtitle: "Malaking tulong ang bawat star!",
+    starModalDescription:
+      "Bago ka magtungo sa GitHub repository, lubos naming pasasalamatan kung mabibigyan mo ng star (★) ang BIR Co-Pilot. Ang iyong suporta ay nagpapalakas ng visibility upang mas marami pang Filipino freelancers, remote workers, empleyado, at negosyante ang makagamit ng libre, 100% pribado, at maaasahang tax calculator na ito.",
+    starModalRepoDetails: "Next.js 16 • Tailwind CSS v4 • TypeScript • MIT License • Walang Server Logging",
+    starModalPrimaryBtn: "Mag-star sa GitHub at Magpatuloy",
+    starModalDirectBtn: "Diretso sa GitHub repository",
+    starModalCancelBtn: "Kanselahin",
 
     // Primary Taxpayer Selection
     taxpayerCardSelfEmployed: "Freelancer / Negosyo",

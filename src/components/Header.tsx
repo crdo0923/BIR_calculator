@@ -26,6 +26,7 @@ interface HeaderProps {
   appMode?: "freelance" | "employee";
   setAppMode?: (mode: "freelance" | "employee") => void;
   onOpenCookies?: () => void;
+  onOpenSourceCode?: () => void;
 }
 
 function GithubIcon({ className = "w-4 h-4" }: { className?: string }) {
@@ -49,9 +50,17 @@ export function Header({
   onOpenPaymentGuide,
   onOpenGlossary,
   onOpenCookies,
+  onOpenSourceCode,
 }: HeaderProps) {
   const t = translations[lang];
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleSourceClick = (e: React.MouseEvent) => {
+    if (onOpenSourceCode) {
+      e.preventDefault();
+      onOpenSourceCode();
+    }
+  };
 
   return (
     <>
@@ -77,46 +86,49 @@ export function Header({
             </div>
           </Link>
 
-          {/* Desktop Ghost Nav Links */}
-          <div className="hidden md:flex items-center gap-1.5 sm:gap-2">
-            <button
-              type="button"
-              onClick={onOpenPaymentGuide}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800/80 transition cursor-pointer"
-            >
-              <CreditCard className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
-              <span>{t.howToPayBtn}</span>
-            </button>
-
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex items-center gap-1">
+            {/* eBIRForms Guide Modal Trigger */}
             <button
               type="button"
               onClick={onOpenEBIR}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800/80 transition cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer"
             >
               <FileSpreadsheet className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
               <span>{t.eBirFormsGuideBtn}</span>
             </button>
 
+            {/* Payment Filing Guide Trigger */}
+            <button
+              type="button"
+              onClick={onOpenPaymentGuide}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer"
+            >
+              <CreditCard className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
+              <span>{t.howToPayBtn}</span>
+            </button>
+
+            {/* Tax Glossary Trigger */}
             <button
               type="button"
               onClick={onOpenGlossary}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800/80 transition cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer"
             >
               <Scale className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
               <span>{t.lawsGlossaryBtn}</span>
             </button>
 
-            <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-800 mx-1" />
+            <span className="w-px h-4 bg-zinc-200 dark:bg-zinc-700 mx-1" />
 
-            {/* Language Switcher Toggle */}
-            <div className="flex items-center bg-zinc-100 dark:bg-zinc-800 p-0.5 rounded-lg border border-zinc-200/80 dark:border-zinc-700">
+            {/* Language Switcher */}
+            <div className="flex items-center bg-zinc-100 dark:bg-zinc-800/90 rounded-lg p-0.5 border border-zinc-200/80 dark:border-zinc-700">
               <button
                 type="button"
                 onClick={() => setLang("en")}
-                className={`px-2 py-0.5 rounded text-[11px] font-semibold transition cursor-pointer ${
+                className={`px-2 py-1 rounded text-xs font-semibold transition cursor-pointer ${
                   lang === "en"
                     ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-2xs font-bold"
-                    : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
+                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
                 }`}
               >
                 EN
@@ -124,24 +136,24 @@ export function Header({
               <button
                 type="button"
                 onClick={() => setLang("tl")}
-                className={`px-2 py-0.5 rounded text-[11px] font-semibold transition cursor-pointer ${
+                className={`px-2 py-1 rounded text-xs font-semibold transition cursor-pointer ${
                   lang === "tl"
                     ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-2xs font-bold"
-                    : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
+                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
                 }`}
               >
                 TL
               </button>
             </div>
 
-            {/* Dark Mode Toggle Button (Desktop) */}
+            {/* Theme Switcher Toggle Button (Desktop) */}
             {toggleTheme && (
               <button
                 type="button"
                 onClick={toggleTheme}
-                className="p-1.5 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200/80 dark:border-zinc-700 transition cursor-pointer"
-                title={theme === "dark" ? t.themeLight : t.themeDark}
+                title={t.themeToggle}
                 aria-label={t.themeToggle}
+                className="p-1.5 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200/80 dark:border-zinc-700 transition cursor-pointer ml-0.5"
               >
                 {theme === "dark" ? (
                   <Sun className="w-4 h-4 text-amber-400" />
@@ -156,7 +168,8 @@ export function Header({
               href="https://github.com/crdo0923/BIR_calculator"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200/80 dark:border-zinc-700 transition"
+              onClick={handleSourceClick}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200/80 dark:border-zinc-700 transition cursor-pointer"
               title="View source code on GitHub"
               aria-label="View source code on GitHub"
             >
@@ -172,7 +185,8 @@ export function Header({
               href="https://github.com/crdo0923/BIR_calculator"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-1.5 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200/80 dark:border-zinc-700 transition"
+              onClick={handleSourceClick}
+              className="p-1.5 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200/80 dark:border-zinc-700 transition cursor-pointer"
               title="View source code on GitHub"
               aria-label="View source code on GitHub"
             >
@@ -281,7 +295,10 @@ export function Header({
               href="https://github.com/crdo0923/BIR_calculator"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => {
+                setMobileMenuOpen(false);
+                handleSourceClick(e);
+              }}
               className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold text-zinc-800 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 active:bg-zinc-100 dark:active:bg-zinc-700 transition cursor-pointer text-left"
             >
               <div className="flex items-center gap-3">
