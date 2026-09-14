@@ -14,6 +14,8 @@ export const translations = {
     themeToggle: "Toggle theme",
     themeDark: "Dark mode",
     themeLight: "Light mode",
+    sourceCode: "GitHub",
+    sourceCodeLabel: "Source Code",
 
     // Primary Taxpayer Selection
     taxpayerCardSelfEmployed: "Self-employed / Freelancer",
@@ -304,6 +306,8 @@ export const translations = {
     themeToggle: "Palitan ang tema",
     themeDark: "Dark mode",
     themeLight: "Light mode",
+    sourceCode: "GitHub",
+    sourceCodeLabel: "Source Code",
 
     // Primary Taxpayer Selection
     taxpayerCardSelfEmployed: "Freelancer / Negosyo",
