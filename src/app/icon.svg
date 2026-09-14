@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="60%" stop-color="#09090b"/>
+      <stop offset="100%" stop-color="#022c22"/>
+    </linearGradient>
+    <linearGradient id="glowRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="pesoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6ee7b7"/>
+      <stop offset="50%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#10b981" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background squircle -->
+  <rect x="20" y="20" width="472" height="472" rx="108" fill="url(#bg)" stroke="url(#glowRing)" stroke-width="8"/>
+
+  <!-- Inner subtle radar circle -->
+  <circle cx="256" cy="256" r="190" fill="none" stroke="#10b981" stroke-opacity="0.08" stroke-width="2"/>
+  <circle cx="256" cy="256" r="130" fill="none" stroke="#10b981" stroke-opacity="0.08" stroke-width="2"/>
+
+  <!-- Crisp Peso symbol ₱ -->
+  <g filter="url(#shadow)">
+    <!-- Vertical stem of P -->
+    <rect x="156" y="116" width="46" height="280" rx="12" fill="url(#pesoGrad)"/>
+    <!-- P upper loop -->
+    <path d="M 180 116 L 270 116 C 334 116 376 152 376 210 C 376 268 334 304 270 304 L 180 304 Z" 
+          fill="none" stroke="url(#pesoGrad)" stroke-width="46" stroke-linejoin="round"/>
+    <!-- Dual horizontal crossbars -->
+    <rect x="108" y="172" width="228" height="26" rx="8" fill="#d1fae5"/>
+    <rect x="108" y="218" width="228" height="26" rx="8" fill="#d1fae5"/>
+  </g>
+</svg>
