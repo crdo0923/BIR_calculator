@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { ComputeResult, formatPHP } from "@/lib/tax-engine";
 import { Language, translations } from "@/lib/translations";
-import { Check } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, Info } from "lucide-react";
 
 interface ComparisonCardsProps {
   result: ComputeResult;
@@ -14,211 +14,342 @@ interface ComparisonCardsProps {
 
 export function ComparisonCards({ result, isMixed, hasExpenses, lang }: ComparisonCardsProps) {
   const t = translations[lang];
-  const winner = result.winner;
-  const isWinner8 = winner === "8%";
-  const isWinnerOSD = winner === "graduated-OSD";
-  const isWinnerItemized = winner === "graduated-itemized";
+  const [showFormulas, setShowFormulas] = useState(false);
+
+  const totalGross = result.grossAnnual + (result.salaryAnnual || 0);
+  const isWinner8 = result.winner === "8%";
+  const isWinnerOSD = result.winner === "graduated-OSD";
+  const isWinnerItemized = result.winner === "graduated-itemized";
+
+  const takeHome8 = Math.max(0, totalGross - result.eight.taxAnnual);
+  const takeHomeOSD = Math.max(0, totalGross - result.graduatedOSD.taxAnnual);
+  const takeHomeItemized = result.graduatedItemized
+    ? Math.max(0, totalGross - result.graduatedItemized.taxAnnual)
+    : 0;
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-center justify-between">
-        <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-600">{t.compTitle}</h3>
-        <span className="text-[11px] text-zinc-400">{t.valuesAnnual}</span>
+    <div className="bg-white border border-zinc-200/90 rounded-2xl p-5 sm:p-6 shadow-xs space-y-4">
+      {/* Title & Subtitle */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-zinc-100 pb-3">
+        <div>
+          <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-800">{t.compTableTitle}</h3>
+          <p className="text-[11px] text-zinc-500">{t.compTableSub}</p>
+        </div>
+        <span className="text-[10.5px] font-semibold text-zinc-400 bg-zinc-100 px-2 py-0.5 rounded self-start sm:self-auto">
+          {t.valuesAnnual}
+        </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-        {/* 1. 8% Flat Rate Card */}
-        <div
-          className={`rounded-3xl p-5 sm:p-6 transition border relative flex flex-col justify-between ${
-            isWinner8
-              ? "bg-white border-emerald-500 ring-2 ring-emerald-500/20 shadow-sm"
-              : "bg-zinc-50/60 border-zinc-200 text-zinc-600"
-          }`}
-        >
-          {isWinner8 && (
-            <div className="absolute -top-3 right-4 bg-emerald-600 text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full tracking-wider shadow-xs flex items-center gap-1">
-              <Check className="w-3 h-3 stroke-[3]" /> {t.bestValueBadge}
-            </div>
-          )}
-
-          <div>
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-zinc-500">{t.regimeA}</span>
-                <h4 className="text-base sm:text-lg font-extrabold text-zinc-900 flex items-center gap-1.5 mt-0.5">
-                  {t.title8}
-                </h4>
-              </div>
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-700">
-                {result.eight.recommendedForms.atcCode}
-              </span>
-            </div>
-
-            {/* Total Tax Liability */}
-            <div className="mt-3 pt-3 border-t border-zinc-200/60">
-              <div className="text-[11px] font-semibold text-zinc-400 uppercase">{t.totalTaxLiability}</div>
-              <div className="text-2xl font-black text-zinc-900 tracking-tight mt-0.5 tabular-nums">
-                {result.eight.eligible ? formatPHP(result.eight.taxAnnual) : t.notEligible}
-              </div>
-              <div className="text-xs text-zinc-500 mt-0.5">
-                {result.eight.eligible
-                  ? t.estQuarterly.replace("{amount}", formatPHP(result.eight.taxQuarter))
-                  : result.eight.reason || "Exceeds ₱3M VAT limit"}
-              </div>
-            </div>
-
-            {/* Net Out of Pocket Payable (if CWT exists) */}
-            {result.cwtAnnual > 0 && result.eight.eligible && (
-              <div className="mt-2.5 p-2.5 bg-emerald-50/60 border border-emerald-200/50 rounded-xl text-xs">
-                <div className="flex items-center justify-between font-bold text-emerald-900">
-                  <span>{t.actualCashToBir}</span>
-                  <span className="tabular-nums">{formatPHP(result.eight.netPayableAnnual)}</span>
+      {/* Scannable Comparison Table */}
+      <div className="overflow-x-auto -mx-5 sm:mx-0 px-5 sm:px-0">
+        <table className="w-full text-xs border-collapse min-w-[500px]">
+          <thead>
+            <tr className="border-b border-zinc-200 text-zinc-500 text-left">
+              <th className="py-2.5 px-3 font-semibold w-1/4">{t.tableColMetric}</th>
+              {/* 8% Flat Rate Column */}
+              <th
+                className={`py-2.5 px-3 font-bold rounded-t-xl text-center ${
+                  isWinner8
+                    ? "bg-emerald-50 text-emerald-900 border-x border-t border-emerald-300"
+                    : "text-zinc-800"
+                }`}
+              >
+                <div className="flex items-center justify-center gap-1">
+                  <span>{t.tableCol8}</span>
+                  {isWinner8 && (
+                    <span className="inline-flex items-center gap-0.5 text-[9px] bg-emerald-600 text-white px-1.5 py-0.2 rounded font-bold uppercase">
+                      <Check className="w-2.5 h-2.5" />
+                      {t.tableRecommendedBadge}
+                    </span>
+                  )}
                 </div>
-                <div className="text-[10.5px] text-emerald-700">
-                  {t.lessCwtCredits.replace("{amount}", formatPHP(result.cwtAnnual))}
-                </div>
-              </div>
-            )}
+              </th>
 
-            {/* Calculation Formula Notes */}
-            <div className="mt-3 space-y-1.5 text-xs text-zinc-600 bg-zinc-100/70 p-3 rounded-2xl">
-              <div className="font-semibold text-zinc-700">{t.howCalculated}</div>
-              {!isMixed ? (
-                <div>{t.formula8Pure}</div>
-              ) : (
-                <div>
-                  {t.formula8Mixed
-                    .replace("{salaryTax}", formatPHP(result.eight.salaryTaxAnnual))
-                    .replace("{freelanceTax}", formatPHP(result.eight.freelanceTaxAnnual))}
+              {/* Graduated 40% OSD Column */}
+              <th
+                className={`py-2.5 px-3 font-bold rounded-t-xl text-center ${
+                  isWinnerOSD
+                    ? "bg-emerald-50 text-emerald-900 border-x border-t border-emerald-300"
+                    : "text-zinc-800"
+                }`}
+              >
+                <div className="flex items-center justify-center gap-1">
+                  <span>{t.tableColGradOSD}</span>
+                  {isWinnerOSD && (
+                    <span className="inline-flex items-center gap-0.5 text-[9px] bg-emerald-600 text-white px-1.5 py-0.2 rounded font-bold uppercase">
+                      <Check className="w-2.5 h-2.5" />
+                      {t.tableRecommendedBadge}
+                    </span>
+                  )}
                 </div>
+              </th>
+
+              {/* Graduated Itemized Column (if applicable) */}
+              {hasExpenses && result.graduatedItemized && (
+                <th
+                  className={`py-2.5 px-3 font-bold rounded-t-xl text-center ${
+                    isWinnerItemized
+                      ? "bg-emerald-50 text-emerald-900 border-x border-t border-emerald-300"
+                      : "text-zinc-800"
+                  }`}
+                >
+                  <div className="flex items-center justify-center gap-1">
+                    <span>{t.tableColGradItemized}</span>
+                    {isWinnerItemized && (
+                      <span className="inline-flex items-center gap-0.5 text-[9px] bg-emerald-600 text-white px-1.5 py-0.2 rounded font-bold uppercase">
+                        <Check className="w-2.5 h-2.5" />
+                        {t.tableRecommendedBadge}
+                      </span>
+                    )}
+                  </div>
+                </th>
               )}
-              <div className="text-[11px] text-emerald-700 font-semibold flex items-center gap-1 mt-1">
-                <Check className="w-3.5 h-3.5" /> {t.noPercentageTax}
-              </div>
-            </div>
-          </div>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-zinc-100">
+            {/* Row 1: Income Tax */}
+            <tr className="hover:bg-zinc-50/50">
+              <td className="py-2.5 px-3 font-medium text-zinc-600">{t.tableRowIncomeTax}</td>
+              <td
+                className={`py-2.5 px-3 text-center tabular-nums font-semibold ${
+                  isWinner8 ? "bg-emerald-50/50 border-x border-emerald-300 text-zinc-900" : "text-zinc-700"
+                }`}
+              >
+                {result.eight.eligible ? formatPHP(result.eight.taxAnnual) : t.notEligible}
+              </td>
+              <td
+                className={`py-2.5 px-3 text-center tabular-nums font-semibold ${
+                  isWinnerOSD ? "bg-emerald-50/50 border-x border-emerald-300 text-zinc-900" : "text-zinc-700"
+                }`}
+              >
+                {formatPHP(result.graduatedOSD.incomeTaxAnnual)}
+              </td>
+              {hasExpenses && result.graduatedItemized && (
+                <td
+                  className={`py-2.5 px-3 text-center tabular-nums font-semibold ${
+                    isWinnerItemized ? "bg-emerald-50/50 border-x border-emerald-300 text-zinc-900" : "text-zinc-700"
+                  }`}
+                >
+                  {formatPHP(result.graduatedItemized.incomeTaxAnnual)}
+                </td>
+              )}
+            </tr>
 
-          {/* Form Required */}
-          <div className="mt-4 pt-3 border-t border-zinc-200/60 text-[11px] text-zinc-500">
-            <span className="font-bold text-zinc-700">{t.annualReturnLabel} </span>
-            {result.eight.recommendedForms.annual}
-          </div>
-        </div>
+            {/* Row 2: Percentage Tax (Sec. 116) */}
+            <tr className="hover:bg-zinc-50/50">
+              <td className="py-2.5 px-3 font-medium text-zinc-600">{t.tableRowPercentageTax}</td>
+              <td
+                className={`py-2.5 px-3 text-center tabular-nums font-semibold ${
+                  isWinner8 ? "bg-emerald-50/50 border-x border-emerald-300 text-emerald-800" : "text-emerald-700"
+                }`}
+              >
+                ₱0 <span className="text-[10px] text-zinc-400 font-normal">({lang === "en" ? "Exempt" : "Libre"})</span>
+              </td>
+              <td
+                className={`py-2.5 px-3 text-center tabular-nums font-semibold ${
+                  isWinnerOSD ? "bg-emerald-50/50 border-x border-emerald-300 text-zinc-900" : "text-zinc-700"
+                }`}
+              >
+                {formatPHP(result.graduatedOSD.percentageAnnual)}
+              </td>
+              {hasExpenses && result.graduatedItemized && (
+                <td
+                  className={`py-2.5 px-3 text-center tabular-nums font-semibold ${
+                    isWinnerItemized ? "bg-emerald-50/50 border-x border-emerald-300 text-zinc-900" : "text-zinc-700"
+                  }`}
+                >
+                  {formatPHP(result.graduatedItemized.percentageAnnual)}
+                </td>
+              )}
+            </tr>
 
-        {/* 2. Graduated + 40% OSD Card */}
-        <div
-          className={`rounded-3xl p-5 sm:p-6 transition border relative flex flex-col justify-between ${
-            isWinnerOSD
-              ? "bg-white border-sky-500 ring-2 ring-sky-500/20 shadow-sm"
-              : "bg-zinc-50/60 border-zinc-200 text-zinc-600"
-          }`}
-        >
-          {isWinnerOSD && (
-            <div className="absolute -top-3 right-4 bg-sky-600 text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full tracking-wider shadow-xs flex items-center gap-1">
-              <Check className="w-3 h-3 stroke-[3]" /> {t.bestValueBadge}
-            </div>
-          )}
-
-          <div>
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-zinc-500">{t.regimeB}</span>
-                <h4 className="text-base sm:text-lg font-extrabold text-zinc-900 flex items-center gap-1.5 mt-0.5">
-                  {t.titleGradOSD}
-                </h4>
-              </div>
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-700">
-                {result.graduatedOSD.recommendedForms.atcCode}
-              </span>
-            </div>
-
-            {/* Total Tax Liability */}
-            <div className="mt-3 pt-3 border-t border-zinc-200/60">
-              <div className="text-[11px] font-semibold text-zinc-400 uppercase">{t.totalTaxLiability}</div>
-              <div className="text-2xl font-black text-zinc-900 tracking-tight mt-0.5 tabular-nums">
+            {/* Row 3: Total Tax Liability (Bold / Key Metric) */}
+            <tr className="bg-zinc-50/60 font-bold">
+              <td className="py-3 px-3 text-zinc-900">{t.tableRowTotalLiability}</td>
+              <td
+                className={`py-3 px-3 text-center tabular-nums text-sm font-black ${
+                  isWinner8
+                    ? "bg-emerald-100/60 border-x border-emerald-300 text-emerald-950"
+                    : "text-zinc-900"
+                }`}
+              >
+                {result.eight.eligible ? formatPHP(result.eight.taxAnnual) : t.notEligible}
+              </td>
+              <td
+                className={`py-3 px-3 text-center tabular-nums text-sm font-black ${
+                  isWinnerOSD
+                    ? "bg-emerald-100/60 border-x border-emerald-300 text-emerald-950"
+                    : "text-zinc-900"
+                }`}
+              >
                 {formatPHP(result.graduatedOSD.taxAnnual)}
-              </div>
-              <div className="text-xs text-zinc-500 mt-0.5">
-                {t.estQuarterly.replace("{amount}", formatPHP(result.graduatedOSD.taxQuarter))}
-              </div>
-            </div>
+              </td>
+              {hasExpenses && result.graduatedItemized && (
+                <td
+                  className={`py-3 px-3 text-center tabular-nums text-sm font-black ${
+                    isWinnerItemized
+                      ? "bg-emerald-100/60 border-x border-emerald-300 text-emerald-950"
+                      : "text-zinc-900"
+                  }`}
+                >
+                  {formatPHP(result.graduatedItemized.taxAnnual)}
+                </td>
+              )}
+            </tr>
 
-            {/* Net Out of Pocket Payable (if CWT exists) */}
+            {/* Row 4: Less 2307 Credits (if user entered CWT) */}
             {result.cwtAnnual > 0 && (
-              <div className="mt-2.5 p-2 bg-sky-50/60 border border-sky-200/50 rounded-lg text-xs">
-                <div className="flex items-center justify-between font-bold text-sky-900">
-                  <span>{t.actualCashToBir}</span>
-                  <span className="tabular-nums">{formatPHP(result.graduatedOSD.netPayableAnnual)}</span>
-                </div>
-                <div className="text-[10.5px] text-sky-700">
-                  {t.lessCwtCredits.replace("{amount}", formatPHP(result.cwtAnnual))}
-                </div>
-              </div>
+              <tr className="hover:bg-zinc-50/50 text-zinc-600">
+                <td className="py-2.5 px-3 font-medium">{t.tableRowCwtCredit}</td>
+                <td
+                  className={`py-2.5 px-3 text-center tabular-nums ${
+                    isWinner8 ? "bg-emerald-50/50 border-x border-emerald-300" : ""
+                  }`}
+                >
+                  −{formatPHP(result.cwtAnnual)}
+                </td>
+                <td
+                  className={`py-2.5 px-3 text-center tabular-nums ${
+                    isWinnerOSD ? "bg-emerald-50/50 border-x border-emerald-300" : ""
+                  }`}
+                >
+                  −{formatPHP(result.cwtAnnual)}
+                </td>
+                {hasExpenses && result.graduatedItemized && (
+                  <td
+                    className={`py-2.5 px-3 text-center tabular-nums ${
+                      isWinnerItemized ? "bg-emerald-50/50 border-x border-emerald-300" : ""
+                    }`}
+                  >
+                    −{formatPHP(result.cwtAnnual)}
+                  </td>
+                )}
+              </tr>
             )}
 
-            {/* Breakdown */}
-            <div className="mt-3 space-y-1.5 text-xs text-zinc-600 bg-zinc-100/70 p-2.5 rounded-xl">
-              <div className="font-semibold text-zinc-700">{t.taxBreakdownLabel}</div>
-              <div className="flex justify-between">
-                <span>{t.incomeTaxGrad}</span>
-                <span className="font-bold tabular-nums">{formatPHP(result.graduatedOSD.incomeTaxAnnual)}</span>
-              </div>
-              <div className="flex justify-between text-amber-700">
-                <span>{t.percentageTaxSec116}</span>
-                <span className="font-bold tabular-nums">+{formatPHP(result.graduatedOSD.percentageAnnual)}</span>
-              </div>
-              <div className="text-[10.5px] text-zinc-400 mt-0.5">
-                {t.taxableBaseLabel.replace("{amount}", formatPHP(result.graduatedOSD.taxableAnnual))}
-              </div>
-            </div>
-          </div>
+            {/* Row 5: Actual Cash to Pay (if 2307 exists) */}
+            {result.cwtAnnual > 0 && (
+              <tr className="hover:bg-zinc-50/50 font-bold text-zinc-900">
+                <td className="py-2.5 px-3">{t.tableRowNetPayable}</td>
+                <td
+                  className={`py-2.5 px-3 text-center tabular-nums font-bold ${
+                    isWinner8 ? "bg-emerald-50/70 border-x border-emerald-300 text-emerald-950" : ""
+                  }`}
+                >
+                  {formatPHP(result.eight.netPayableAnnual)}
+                </td>
+                <td
+                  className={`py-2.5 px-3 text-center tabular-nums font-bold ${
+                    isWinnerOSD ? "bg-emerald-50/70 border-x border-emerald-300 text-emerald-950" : ""
+                  }`}
+                >
+                  {formatPHP(result.graduatedOSD.netPayableAnnual)}
+                </td>
+                {hasExpenses && result.graduatedItemized && (
+                  <td
+                    className={`py-2.5 px-3 text-center tabular-nums font-bold ${
+                      isWinnerItemized ? "bg-emerald-50/70 border-x border-emerald-300 text-emerald-950" : ""
+                    }`}
+                  >
+                    {formatPHP(result.graduatedItemized.netPayableAnnual)}
+                  </td>
+                )}
+              </tr>
+            )}
 
-          {/* Form Required */}
-          <div className="mt-4 pt-3 border-t border-zinc-200/60 text-[11px] text-zinc-500">
-            {t.requiresTwoForms}
-          </div>
-        </div>
+            {/* Row 6: Estimated Take-Home Pay */}
+            <tr className="hover:bg-zinc-50/50">
+              <td className="py-2.5 px-3 font-semibold text-zinc-700">{t.tableRowTakeHome}</td>
+              <td
+                className={`py-2.5 px-3 text-center tabular-nums font-bold ${
+                  isWinner8 ? "bg-emerald-50/50 border-x border-emerald-300 text-zinc-900" : "text-zinc-700"
+                }`}
+              >
+                {formatPHP(takeHome8)}
+              </td>
+              <td
+                className={`py-2.5 px-3 text-center tabular-nums font-bold ${
+                  isWinnerOSD ? "bg-emerald-50/50 border-x border-emerald-300 text-zinc-900" : "text-zinc-700"
+                }`}
+              >
+                {formatPHP(takeHomeOSD)}
+              </td>
+              {hasExpenses && result.graduatedItemized && (
+                <td
+                  className={`py-2.5 px-3 text-center tabular-nums font-bold ${
+                    isWinnerItemized ? "bg-emerald-50/50 border-x border-emerald-300 text-zinc-900" : "text-zinc-700"
+                  }`}
+                >
+                  {formatPHP(takeHomeItemized)}
+                </td>
+              )}
+            </tr>
+
+            {/* Row 7: Forms Required */}
+            <tr className="border-b border-zinc-200 text-[11px] text-zinc-500">
+              <td className="py-2.5 px-3 font-medium">{t.tableRowFormsNeeded}</td>
+              <td
+                className={`py-2.5 px-3 text-center rounded-b-xl ${
+                  isWinner8 ? "bg-emerald-50/50 border-x border-b border-emerald-300 font-medium text-zinc-700" : ""
+                }`}
+              >
+                1701A (Annual) • 1701Q (Quarterly)
+              </td>
+              <td
+                className={`py-2.5 px-3 text-center rounded-b-xl ${
+                  isWinnerOSD ? "bg-emerald-50/50 border-x border-b border-emerald-300 font-medium text-zinc-700" : ""
+                }`}
+              >
+                1701A/1701 + 2551Q (Quarterly)
+              </td>
+              {hasExpenses && result.graduatedItemized && (
+                <td
+                  className={`py-2.5 px-3 text-center rounded-b-xl ${
+                    isWinnerItemized ? "bg-emerald-50/50 border-x border-b border-emerald-300 font-medium text-zinc-700" : ""
+                  }`}
+                >
+                  1701 + 2551Q + Receipts
+                </td>
+              )}
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      {/* 3. Graduated + Itemized Card (if user entered expenses) */}
-      {hasExpenses && result.graduatedItemized && (
-        <div
-          className={`rounded-2xl p-4 sm:p-5 transition border relative mt-3 ${
-            isWinnerItemized
-              ? "bg-white border-purple-500 ring-2 ring-purple-500/20 shadow-sm"
-              : "bg-zinc-50/60 border-zinc-200 text-zinc-600"
-          }`}
+      {/* Quiet formula and rule details accordion */}
+      <div className="pt-1">
+        <button
+          type="button"
+          onClick={() => setShowFormulas(!showFormulas)}
+          className="text-xs text-zinc-500 hover:text-zinc-800 flex items-center gap-1.5 transition cursor-pointer font-medium"
         >
-          {isWinnerItemized && (
-            <div className="absolute -top-3 right-4 bg-purple-600 text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full tracking-wider shadow-xs flex items-center gap-1">
-              <Check className="w-3 h-3 stroke-[3]" /> {t.bestValueBadge}
-            </div>
-          )}
+          <Info className="w-3.5 h-3.5" />
+          <span>{lang === "en" ? "How each tax option is computed" : "Paano kinwenta ang bawat opsyon"}</span>
+          {showFormulas ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+        </button>
 
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-purple-600">{t.regimeC}</span>
-              <h4 className="text-base font-extrabold text-zinc-900">{t.titleGradItemized}</h4>
-              <p className="text-xs text-zinc-500">{t.itemizedSubtitle}</p>
+        {showFormulas && (
+          <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-zinc-600 bg-zinc-50 p-4 rounded-xl border border-zinc-200/80">
+            <div className="space-y-1">
+              <span className="font-bold text-zinc-800">{t.title8}:</span>
+              <p className="text-[11px] leading-relaxed">
+                {!isMixed ? t.formula8Pure : t.formula8Mixed
+                  .replace("{salaryTax}", formatPHP(result.eight.salaryTaxAnnual))
+                  .replace("{freelanceTax}", formatPHP(result.eight.freelanceTaxAnnual))}
+              </p>
+              <p className="text-[10.5px] text-emerald-800 font-medium">{t.noPercentageTax}</p>
             </div>
-            <div className="text-right">
-              <div className="text-xs text-zinc-400 font-semibold uppercase">{t.totalTaxLiability}</div>
-              <div className="text-2xl font-black text-zinc-900 tracking-tight tabular-nums">
-                {formatPHP(result.graduatedItemized.taxAnnual)}
-              </div>
+
+            <div className="space-y-1">
+              <span className="font-bold text-zinc-800">{t.titleGradOSD}:</span>
+              <p className="text-[11px] leading-relaxed">
+                {t.taxableBaseLabel.replace("{amount}", formatPHP(result.graduatedOSD.taxableAnnual))}
+              </p>
+              <p className="text-[10.5px] text-zinc-500">{t.requiresTwoForms}</p>
             </div>
           </div>
-
-          <div className="mt-3 pt-3 border-t border-zinc-200/60 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-zinc-600">
-            <div>
-              {t.incomeTaxGrad} <span className="font-bold tabular-nums">{formatPHP(result.graduatedItemized.incomeTaxAnnual)}</span>
-            </div>
-            <div>
-              {t.percentageTaxSec116} <span className="font-bold tabular-nums">+{formatPHP(result.graduatedItemized.percentageAnnual)}</span>
-            </div>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

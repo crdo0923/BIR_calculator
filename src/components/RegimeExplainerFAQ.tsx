@@ -165,6 +165,56 @@ export function RegimeExplainerFAQ({ lang }: RegimeExplainerFAQProps) {
             </div>
           ),
         },
+        {
+          question: "Am I required to register with the BIR if I freelance or run a small business?",
+          shortAnswer:
+            "Yes. All self-employed individuals, professionals, and freelancers in the Philippines are required to register with the BIR.",
+          details: (
+            <div className="space-y-3 pt-2 text-zinc-600 leading-relaxed text-xs">
+              <p>
+                Under Section 236 of the Tax Code, anyone engaging in trade, business, or practice of profession must
+                register with the Revenue District Office (RDO) having jurisdiction over their principal place of
+                business or residence.
+              </p>
+              <ul className="space-y-1.5 pl-4 list-disc text-zinc-600">
+                <li>
+                  You will receive a <strong>BIR Certificate of Registration (Form 2303)</strong>.
+                </li>
+                <li>
+                  Under the <strong>Ease of Paying Taxes (EOPT) Act</strong>, the ₱500 Annual Registration Fee has been
+                  permanently removed!
+                </li>
+                <li>
+                  Registered taxpayers can issue official invoices to local and foreign clients and open corporate or
+                  business bank accounts.
+                </li>
+              </ul>
+            </div>
+          ),
+        },
+        {
+          question: "What is Form 2307 and how does it reduce what I pay?",
+          shortAnswer:
+            "Form 2307 is proof that your client withheld tax upfront. You deduct this amount directly from your final tax payable.",
+          details: (
+            <div className="space-y-3 pt-2 text-zinc-600 leading-relaxed text-xs">
+              <p>
+                BIR Form 2307 (Certificate of Creditable Tax Withheld at Source) is issued by corporate clients who
+                withheld 5% or 10% from your professional fees before paying you.
+              </p>
+              <ul className="space-y-1.5 pl-4 list-disc text-zinc-600">
+                <li>
+                  <strong>Dollar-for-dollar deduction:</strong> If your annual tax due is ₱60,000 and your clients
+                  already withheld ₱30,000 via Form 2307, your remaining cash out is only ₱30,000.
+                </li>
+                <li>
+                  <strong>Never throw away Form 2307:</strong> Keep the signed copy from your clients, as it serves as
+                  your official tax credit receipt when submitting your returns.
+                </li>
+              </ul>
+            </div>
+          ),
+        },
       ]
     : [
         {
@@ -305,6 +355,55 @@ export function RegimeExplainerFAQ({ lang }: RegimeExplainerFAQProps) {
             </div>
           ),
         },
+        {
+          question: "Kailangan ko bang magrehistro sa BIR kung ako ay freelancer o may maliit na negosyo?",
+          shortAnswer:
+            "Oo. Lahat ng kumikita mula sa freelance, propesyon, o negosyo sa Pilipinas ay obligadong magrehistro sa BIR.",
+          details: (
+            <div className="space-y-3 pt-2 text-zinc-600 leading-relaxed text-xs">
+              <p>
+                Ayon sa Section 236 ng Tax Code, ang bawat indibidwal na nagtatrabaho o nagnenegosyo para sa sarili ay
+                dapat magpatala sa Revenue District Office (RDO) na sumasakop sa kanyang tirahan o opisina.
+              </p>
+              <ul className="space-y-1.5 pl-4 list-disc text-zinc-600">
+                <li>
+                  Makakatanggap ka ng <strong>BIR Certificate of Registration (Form 2303)</strong>.
+                </li>
+                <li>
+                  Sa ilalim ng <strong>Ease of Paying Taxes (EOPT) Act</strong>, tinanggal na nang permanente ang ₱500
+                  Annual Registration Fee!
+                </li>
+                <li>
+                  Kapag rehistrado ka, maaari kang mag-isyu ng opisyal na invoice sa mga kliyente at magbukas ng
+                  business bank accounts.
+                </li>
+              </ul>
+            </div>
+          ),
+        },
+        {
+          question: "Ano ang Form 2307 at paano nito binabawasan ang buwis ko?",
+          shortAnswer:
+            "Katibayan ito na binawasan ka na ng withholding tax ng kliyente mo. Ibinabawas ito nang buo sa babayaran mo sa BIR.",
+          details: (
+            <div className="space-y-3 pt-2 text-zinc-600 leading-relaxed text-xs">
+              <p>
+                Ang BIR Form 2307 (Certificate of Creditable Tax Withheld at Source) ay ibinibigay ng mga kumpanyang
+                kliyente mo kapag binawasan nila ng 5% o 10% ang bayad sa iyong serbisyo bago ibigay sa&apos;yo.
+              </p>
+              <ul className="space-y-1.5 pl-4 list-disc text-zinc-600">
+                <li>
+                  <strong>Bawas piso-sa-piso:</strong> Kung ang kabuuang buwis mo ay ₱60,000 at nakakaltasan ka na ng
+                  ₱30,000 via Form 2307, ₱30,000 na lamang ang kailangan mong ilabas na cash sa BIR.
+                </li>
+                <li>
+                  <strong>Huwag itapon ang Form 2307:</strong> Itago ang kopya mula sa mga kliyente dahil ito ang
+                  iyong opisyal na tax credit receipt sa pag-file ng returns.
+                </li>
+              </ul>
+            </div>
+          ),
+        },
       ];
 
   return (
@@ -328,7 +427,7 @@ export function RegimeExplainerFAQ({ lang }: RegimeExplainerFAQProps) {
         </div>
 
         <span className="text-[11px] font-semibold text-zinc-500 bg-zinc-100 px-2 py-0.5 rounded-md hidden sm:inline-block">
-          {isEn ? "5 FAQs" : "5 Katanungan"}
+          {isEn ? `${faqList.length} FAQs` : `${faqList.length} Katanungan`}
         </span>
       </div>
 

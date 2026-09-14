@@ -1,7 +1,7 @@
 <div align="center">
 
 # BIR Co-Pilot PH 🇵🇭
-### The Modern, Free & Open-Source Philippine Tax & Payslip Suite
+### The Modern, Free & Open-Source Philippine Income Tax Calculator
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.3%20(Turbopack)-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)](https://www.typescriptlang.org/)
@@ -17,8 +17,9 @@
 
 <br />
 
-**Find out where you save more money in 30 seconds.**  
-Designed specifically for **Filipino Freelancers, Self-Employed Professionals, Sole Proprietors, Mixed Income Earners, and Corporate Employees**.
+**Philippine Income Tax Calculator**  
+*Estimate your income tax, compare 8% vs graduated rates, and understand what you may need to pay or file.*  
+Designed for **Filipino Freelancers, Self-Employed Professionals, Sole Proprietors, Mixed Income Earners, and Corporate Employees**.
 
 [Live Web App](http://localhost:3002) • [eBIRForms Official Portal](https://www.bir.gov.ph/ebirforms) • [Report Issue](https://github.com/crdo0923/BIR_calculator/issues)
 
@@ -28,10 +29,11 @@ Designed specifically for **Filipino Freelancers, Self-Employed Professionals, S
 
 ## 📑 Table of Contents
 - [Why BIR Co-Pilot PH?](#-why-bir-co-pilot-ph)
+- [Clean Mental Model & Architecture](#-clean-mental-model--architecture)
 - [Key Features](#-key-features)
-  - [1. Freelancer & Business Suite](#1-freelancer-professional--business-suite)
+  - [1. Freelancer & Self-Employed Suite](#1-freelancer-professional--self-employed-suite)
   - [2. Full-Time Employee Payroll & Payslip Suite](#2-full-time-employee-payroll--payslip-suite)
-  - [3. Modern SaaS Experience & Mobile Dock](#3-modern-saas-experience--mobile-dock)
+  - [3. Trustworthy Philippine Utility Design](#3-trustworthy-philippine-utility-design)
 - [Tax Engines & Statutory Formulas](#-tax-engines--statutory-formulas)
   - [8% Flat Rate vs Graduated OSD](#8-flat-rate-vs-graduated-osd)
   - [Creditable Withholding Tax (CWT Form 2307)](#creditable-withholding-tax-cwt-form-2307)
@@ -49,18 +51,35 @@ Designed specifically for **Filipino Freelancers, Self-Employed Professionals, S
 
 ## 💡 Why BIR Co-Pilot PH?
 
-Navigating Philippine tax laws shouldn't be confusing, stressful, or expensive. Most available online calculators are either locked behind paid SaaS payroll subscriptions, limited to full-time employees, or filled with intrusive advertisements.
+Navigating Philippine tax laws shouldn't be confusing, stressful, or expensive. Most available online calculators are either locked behind paid SaaS payroll subscriptions, limited to full-time employees, or cluttered with intrusive advertisements.
 
-**BIR Co-Pilot PH** bridges this gap:
-1. **Unified Dual Engine:** Covers both Freelance/Self-Employed tax regimes and Corporate Employee monthly payslips in one cohesive application.
-2. **Precision Statutory Compliance:** Fully certified against the **TRAIN Law (RA 10963)**, the **Ease of Paying Taxes Act (RA 11976)**, and updated 2024–2026 SSS, PhilHealth, and Pag-IBIG circulars.
-3. **100% In-Browser Privacy:** All computations run directly in your browser using client-side TypeScript. No financial data, income numbers, or names are ever uploaded to a server or tracking database.
+**BIR Co-Pilot PH** delivers a clean, authoritative, and trustworthy Philippine tax utility:
+1. **3-Second Clarity:** A first-time visitor immediately understands what the site does: estimate taxes, compare regimes, and understand obligations.
+2. **Unified Dual Engine:** Covers both Freelance/Self-Employed tax regimes (8% Flat vs Graduated OSD/Itemized) and Corporate Employee monthly payslips in one cohesive application.
+3. **Precision Statutory Compliance:** Fully certified against the **TRAIN Law (RA 10963)**, the **Ease of Paying Taxes Act (RA 11976)**, and updated 2024–2026 SSS, PhilHealth, and Pag-IBIG circulars.
+4. **100% In-Browser Privacy:** All computations run directly in your browser using client-side TypeScript. No financial data, income numbers, or personal records are ever uploaded to a server or tracking database.
+
+---
+
+## 🎯 Clean Mental Model & Architecture
+
+The application is structured around a natural 3-step decision flow:
+
+$$\text{1. Choose Taxpayer} \longrightarrow \text{2. Enter Income} \longrightarrow \text{3. See Result}$$
+
+- **Step 1 — Taxpayer Selection:** Two clean cards (`Self-employed / Freelancer` vs `Employee`) without heavy visual containers.
+- **Step 2 — Progressive Inputs:** Immediate gross income with quiet monthly presets (`₱30k/mo` to `₱250k/mo`) and segmented controls; secondary inputs like Form 2307 CWT and Itemized Expenses are tucked under a collapsible `Advanced options (+ / −)` panel.
+- **Step 3 — Tiered Result Hierarchy:**
+  - **Tier 1:** Estimated Tax & Net Take-Home Hero Card with immediate action buttons (`View eBIRForms Guide` & `How & Where to Pay`).
+  - **Tier 2:** Scannable side-by-side comparison table (Metric, 8% Flat Rate, Graduated 40% OSD, Graduated Itemized) with lower amount highlighted.
+  - **Tier 3:** Plain-language decision helpers (*"When does the other tax method become cheaper?"* & *"What do I need to remember?"*).
+  - **Tier 4:** Comprehensive accordion FAQ and compact statutory educational disclaimer.
 
 ---
 
 ## 🌟 Key Features
 
-### 1. Freelancer, Professional & Business Suite
+### 1. Freelancer, Professional & Self-Employed Suite
 - **8% Flat Rate vs. Graduated Rates (OSD & Itemized):**
   Instantly computes your tax liability under all regimes side-by-side, highlights the winning strategy, and displays your exact annual savings in pesos.
 - **Form 2307 Creditable Withholding Tax (CWT) Deduction:**
@@ -88,15 +107,13 @@ Navigating Philippine tax laws shouldn't be confusing, stressful, or expensive. 
 - **Substituted Filing (Form 2316) Guide:**
   Explains conditions where qualified employees are exempt from filing an annual Form 1700.
 
-### 3. Modern SaaS Experience & Mobile Dock
-- **Tailwind CSS & Turbopack UI:**
-  Clean emerald squircle branding, high-contrast segmented mode switchers, rounded-3xl card containers, and tabular figures.
-- **Thumb-Friendly Mobile Bottom Dock:**
-  Dedicated 4-button mobile navigation bar (`Mode`, `Pay Tax`, `eBIRForms`, `Laws`) with iOS/Android gesture safe-area insets (`env(safe-area-inset-bottom)`).
-- **Bilingual Support:**
-  Instant toggle between 🇺🇸 **English** and 🇵🇭 **Tagalog** across all calculation labels, tooltips, and statutory summaries.
+### 3. Trustworthy Philippine Utility Design
+- **Clutter-Free Navigation:**
+  Desktop uses subtle ghost buttons (`Where & How to Pay`, `eBIRForms Guide`, `Laws & Terms`). Mobile uses a compact top header with language switch (`EN | TL`) and a single `More (⋮)` dropdown menu—freeing up the entire bottom screen.
 - **Zero Horizontal Overflow:**
-  Rigorously tested to ensure 0px horizontal scroll on all modern mobile viewports (375px–430px).
+  Rigorously audited and tested across both mobile viewports (390px iPhone) and desktop (1440px), guaranteeing 0px horizontal scroll.
+- **Bilingual Support:**
+  Instant toggle between 🇺🇸 **English** and 🇵🇭 **Tagalog** across all calculation labels, tooltips, tables, and statutory summaries.
 
 ---
 
@@ -200,10 +217,14 @@ bir-co-pilot/
 │   │   ├── privacy/            # Privacy Policy (Republic Act No. 10173 compliance)
 │   │   └── terms/              # Terms of Service & Educational Disclaimer
 │   ├── components/
-│   │   ├── Header.tsx          # Sticky header + 4-button mobile bottom dock
-│   │   ├── IncomeConfig.tsx    # Freelancer gross income, CWT, and expense inputs
-│   │   ├── TaxWinnerHero.tsx   # Top recommendation banner & savings indicator
-│   │   ├── ComparisonCards.tsx # Side-by-side 8% vs Graduated OSD comparisons
+│   │   ├── Header.tsx          # Sticky header + ghost links & compact mobile More menu
+│   │   ├── IncomeConfig.tsx    # Progressive disclosure inputs (gross, presets, CWT, expenses)
+│   │   ├── TaxWinnerHero.tsx   # Tier 1 Result Card (estimated tax, recommended method, take-home)
+│   │   ├── ComparisonCards.tsx # Tier 2 Scannable side-by-side comparison table
+│   │   ├── TaxBreakdownVisualizer.tsx # Take-home pay vs BIR tax breakdown bar
+│   │   ├── BreakEvenCard.tsx   # Tier 3 Decision helper: when itemized beats 8%
+│   │   ├── DeadlinesCalendar.tsx # Tier 3 Decision helper: upcoming BIR deadlines
+│   │   ├── RegimeExplainerFAQ.tsx # Tier 4 Explainer FAQ accordion
 │   │   ├── EBIRFormsModal.tsx  # eBIRForms line 15–21 mapper + .txt export
 │   │   ├── PaymentFilingGuideModal.tsx # Maya/GCash 1-tap launchers & bank guides
 │   │   ├── EmployeeSalaryCalculator.tsx # SSS, PhilHealth, Pag-IBIG payslip engine

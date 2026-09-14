@@ -9,24 +9,43 @@ export const translations = {
     eBirFormsGuideBtn: "eBIRForms Guide",
     howToPayBtn: "Where & How to Pay",
     lawsGlossaryBtn: "Laws & Terms",
+    headerMoreMenu: "More",
+    headerPrivacySettings: "Privacy & Cookies",
+
+    // Primary Taxpayer Selection
+    taxpayerCardSelfEmployed: "Self-employed / Freelancer",
+    taxpayerCardSelfEmployedSub: "Freelance, professional, or business income",
+    taxpayerCardEmployee: "Employee",
+    taxpayerCardEmployeeSub: "Salary and payroll tax",
+    heroStepGuide: "1. Choose taxpayer → 2. Enter income → 3. See result",
 
     // Modes
-    modeFreelance: "Business & Freelance",
+    modeFreelance: "Self-Employed / Freelancer",
     modeFreelanceSub: "8% vs Graduated",
-    modeEmployee: "Full-Time Employee",
+    modeEmployee: "Employee",
     modeEmployeeSub: "Salary & Payslip",
 
     // Hero Freelance
-    heroFreelanceBadge: "TRAIN Law & EOPT Act 2026 • Free & In-Browser",
-    heroFreelanceTitle: "8% Flat or Graduated?",
+    heroMainTitle: "Philippine Income Tax Calculator",
+    heroMainSubtitle:
+      "Estimate your income tax, compare 8% vs graduated rates, and understand what you may need to pay or file.",
+    heroFreelanceBadge: "TRAIN Law & EOPT Act 2026 • Free & Private in Browser",
+    heroFreelanceTitle: "Philippine Income Tax Calculator",
     heroFreelanceSubtitle:
-      "Find out where Filipino Freelancers, Sole Proprietors, and Mixed Earners save more money in 30 seconds. Free, private, and eBIRForms-ready.",
+      "Estimate your income tax, compare 8% vs graduated rates, and understand what you may need to pay or file.",
 
     // Hero Employee
     heroEmployeeBadge: "2024–2026 SSS, PhilHealth, Pag-IBIG & TRAIN Table",
-    heroEmployeeTitle: "Full-Time Employee Tax & Payslip",
+    heroEmployeeTitle: "Employee Tax & Payslip Calculator",
     heroEmployeeSubtitle:
-      "Calculate your exact mandatory deductions for SSS, PhilHealth, Pag-IBIG, and BIR Withholding Tax. Discover your true Net Take-Home Pay per month and per cutoff.",
+      "Calculate your exact mandatory deductions for SSS, PhilHealth, Pag-IBIG, and BIR Withholding Tax. Discover your true Net Take-Home Pay.",
+
+    // Income Config & Progressive Disclosure
+    autoUpdateNote: "Results update automatically",
+    advancedOptionsToggle: "Advanced options",
+    advancedOptionsHelp: "Form 2307 tax credits & itemized business expenses",
+    cwtHelpText: "Did clients deduct tax with Form 2307? This directly offsets your tax due.",
+    expensesHelpText: "Only valid with registered official receipts or invoices. Otherwise, 40% OSD is used.",
 
     // Income Config
     incomeSectionTitle: "Income & Profile",
@@ -67,7 +86,42 @@ export const translations = {
     vatAlertTitle: "Over ₱3,000,000 VAT Threshold:",
     vatAlertDesc: "Your gross income exceeds ₱3M. Under the Tax Code, 8% flat is revoked; you must register for VAT and file under Graduated rates.",
 
-    // Tax Winner Hero
+    // Tier 1 Result Card
+    tier1EstimatedTax: "Your estimated tax",
+    tier1RecommendedMethod: "Recommended method",
+    tier1LowerTaxBadge: "Lower estimated tax based on your inputs",
+    tier1EstimatedTakeHome: "Estimated take-home",
+    tier1Disclaimer: "Estimate based on the information you entered.",
+    tier1Option8: "8% Flat Rate",
+    tier1OptionGradOSD: "Graduated (40% OSD)",
+    tier1OptionGradItemized: "Graduated (Itemized)",
+    tier1ViewGuideBtn: "View eBIRForms Guide",
+    tier1HowToPayBtn: "How & Where to Pay",
+
+    // Tier 2 Scannable Comparison Table
+    compTableTitle: "Side-by-Side Comparison",
+    compTableSub: "Compare total tax liability, forms required, and net take-home pay.",
+    tableColMetric: "Regime / Metric",
+    tableCol8: "8% Flat Rate",
+    tableColGradOSD: "Graduated (40% OSD)",
+    tableColGradItemized: "Graduated (Itemized)",
+    tableRowIncomeTax: "Income Tax",
+    tableRowPercentageTax: "Percentage Tax (Sec. 116)",
+    tableRowTotalLiability: "Total Tax Liability",
+    tableRowCwtCredit: "Less 2307 Credits",
+    tableRowNetPayable: "Actual Cash to Pay",
+    tableRowTakeHome: "Estimated Take-Home",
+    tableRowFormsNeeded: "Forms Required",
+    tableRecommendedBadge: "Recommended",
+    tableLowerAmount: "Lower Tax",
+
+    // Tier 3 Decision Headers
+    breakEvenHeaderTitle: "When does the other tax method become cheaper?",
+    breakEvenHeaderSub: "Break-even analysis: how much receipts you need for Graduated Itemized to beat 8%.",
+    deadlinesHeaderTitle: "What do I need to remember?",
+    deadlinesHeaderSub: "Upcoming BIR filing and payment deadlines for your tax type.",
+
+    // Tax Winner Hero (Legacy & detailed fields)
     recStrategy: "Recommended Strategy",
     lawTag: "TRAIN Law · 2026",
     vatRequiredTitle: "Graduated Rates Required",
@@ -242,24 +296,43 @@ export const translations = {
     eBirFormsGuideBtn: "eBIRForms Gabay",
     howToPayBtn: "Saan at Paano Magbayad",
     lawsGlossaryBtn: "Batas at Terms",
+    headerMoreMenu: "Iba pa",
+    headerPrivacySettings: "Privacy at Cookies",
+
+    // Primary Taxpayer Selection
+    taxpayerCardSelfEmployed: "Freelancer / Negosyo",
+    taxpayerCardSelfEmployedSub: "Kita sa freelance, propesyon, o sariling negosyo",
+    taxpayerCardEmployee: "Empleyado",
+    taxpayerCardEmployeeSub: "Sahod at buwis sa payslip",
+    heroStepGuide: "1. Pumili ng taxpayer → 2. Ipasok ang kita → 3. Tingnan ang resulta",
 
     // Modes
-    modeFreelance: "Negosyo at Freelance",
+    modeFreelance: "Self-Employed / Freelancer",
     modeFreelanceSub: "8% vs Graduated",
-    modeEmployee: "Full-Time Empleyado",
+    modeEmployee: "Empleyado",
     modeEmployeeSub: "Sweldo at Payslip",
 
     // Hero Freelance
+    heroMainTitle: "Kalkulador ng Buwis sa Pilipinas",
+    heroMainSubtitle:
+      "Tantiyahin ang iyong income tax, paghambingin ang 8% at graduated rates, at alamin kung magkano ang babayaran o ifa-file.",
     heroFreelanceBadge: "TRAIN Law & EOPT Act 2026 • Libre sa Browser",
-    heroFreelanceTitle: "8% Flat o Graduated?",
+    heroFreelanceTitle: "Kalkulador ng Buwis sa Pilipinas",
     heroFreelanceSubtitle:
-      "Alamin kung saan mas makakatipid ang Filipino Freelancers, Sole Proprietors, at Mixed Earners sa loob ng 30 segundo. Libre, pribado, at eBIRForms-ready.",
+      "Tantiyahin ang iyong income tax, paghambingin ang 8% at graduated rates, at alamin kung magkano ang babayaran o ifa-file.",
 
     // Hero Employee
     heroEmployeeBadge: "2024–2026 SSS, PhilHealth, Pag-IBIG & TRAIN Table",
     heroEmployeeTitle: "Buwis at Payslip ng Empleyado",
     heroEmployeeSubtitle:
-      "Kalkulahin ang eksaktong kaltas ng SSS, PhilHealth, Pag-IBIG, at BIR Withholding Tax. Alamin ang tunay mong Take-Home Pay bawat buwan at kada kinsenas.",
+      "Kalkulahin ang eksaktong kaltas ng SSS, PhilHealth, Pag-IBIG, at BIR Withholding Tax. Alamin ang tunay mong Take-Home Pay.",
+
+    // Income Config & Progressive Disclosure
+    autoUpdateNote: "Awtomatikong nag-a-update ang resulta",
+    advancedOptionsToggle: "Karagdagang opsyon",
+    advancedOptionsHelp: "Form 2307 tax credits at dokumentadong gastos",
+    cwtHelpText: "Binawasan ka ba ng kliyente gamit ang Form 2307? Mababawas ito sa babayaran mo sa BIR.",
+    expensesHelpText: "Kailangan ng rehistradong resibo o invoice. Kung wala, 40% OSD ang gagamitin.",
 
     // Income Config
     incomeSectionTitle: "Kita at Profile",
@@ -299,6 +372,41 @@ export const translations = {
     expensesDesc: "Valid lamang kung may opisyal na resibo/invoices. Kung walang resibo, automatic na 40% OSD ang gagamitin sa Graduated.",
     vatAlertTitle: "Lagpas sa ₱3,000,000 VAT Threshold:",
     vatAlertDesc: "Ang iyong kita ay lumagpas sa ₱3M. Bawal na ang 8% flat; kailangan mong magparehistro sa VAT at mag-Graduated rates.",
+
+    // Tier 1 Result Card
+    tier1EstimatedTax: "Tantiyang Buwis",
+    tier1RecommendedMethod: "Inirerekomendang Paraan",
+    tier1LowerTaxBadge: "Mas mababang buwis batay sa iyong nilagay",
+    tier1EstimatedTakeHome: "Tantiyang Take-Home",
+    tier1Disclaimer: "Tantiya batay sa impormasyong inilagay.",
+    tier1Option8: "8% Flat Rate",
+    tier1OptionGradOSD: "Graduated (40% OSD)",
+    tier1OptionGradItemized: "Graduated (Itemized)",
+    tier1ViewGuideBtn: "Tingnan ang eBIRForms Gabay",
+    tier1HowToPayBtn: "Saan at Paano Magbayad",
+
+    // Tier 2 Scannable Comparison Table
+    compTableTitle: "Paghahambing ng mga Paraan",
+    compTableSub: "Ikumpara ang buwis, kailangang form, at maiuuwing kita.",
+    tableColMetric: "Kategorya",
+    tableCol8: "8% Flat Rate",
+    tableColGradOSD: "Graduated (40% OSD)",
+    tableColGradItemized: "Graduated (Itemized)",
+    tableRowIncomeTax: "Income Tax",
+    tableRowPercentageTax: "Percentage Tax (Sec. 116)",
+    tableRowTotalLiability: "Kabuuang Buwis",
+    tableRowCwtCredit: "Bawas Form 2307",
+    tableRowNetPayable: "Tantiyang Babayaran sa BIR",
+    tableRowTakeHome: "Tantiyang Take-Home",
+    tableRowFormsNeeded: "Mga Form na Ifa-file",
+    tableRecommendedBadge: "Inirerekomenda",
+    tableLowerAmount: "Mas Mababa",
+
+    // Tier 3 Decision Headers
+    breakEvenHeaderTitle: "Kailan mas matipid ang ibang paraan ng buwis?",
+    breakEvenHeaderSub: "Pagsusuri kung kailan mas matipid ang itemized deductions kaysa 8%.",
+    deadlinesHeaderTitle: "Ano ang mga dapat tandaan at deadline?",
+    deadlinesHeaderSub: "Mga paparating na deadline ng BIR para sa iyong uri ng buwis.",
 
     // Tax Winner Hero
     recStrategy: "Inirerekomendang Diskarte",

@@ -34,8 +34,8 @@ export function BreakEvenCard({ result, expenses, grossAnnual, lang }: BreakEven
             <Scale className="w-3.5 h-3.5" />
           </div>
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-700">{t.breakEvenTitle}</h3>
-            <p className="text-[11px] text-zinc-400">{t.breakEvenSub}</p>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-800">{t.breakEvenHeaderTitle}</h3>
+            <p className="text-[11px] text-zinc-500">{t.breakEvenHeaderSub}</p>
           </div>
         </div>
         <div className="text-right">

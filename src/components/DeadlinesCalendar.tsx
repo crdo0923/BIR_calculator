@@ -57,8 +57,8 @@ export function DeadlinesCalendar({ is8Percent, lang }: DeadlinesCalendarProps) 
             <Calendar className="w-3.5 h-3.5" />
           </div>
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-700">{t.deadlinesTitle}</h3>
-            <p className="text-[11px] text-zinc-400">{t.deadlinesSub}</p>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-800">{t.deadlinesHeaderTitle}</h3>
+            <p className="text-[11px] text-zinc-500">{t.deadlinesHeaderSub}</p>
           </div>
         </div>
 
