@@ -16,14 +16,14 @@ export const translations = {
     themeLight: "Light mode",
     sourceCode: "GitHub",
     sourceCodeLabel: "Source Code",
-    starModalBadge: "Open Source Community",
-    starModalTitle: "Support BIR Co-Pilot on GitHub",
-    starModalSubtitle: "A small star makes a huge difference!",
+    starModalBadge: "Open Source",
+    starModalTitle: "Star on GitHub ⭐",
+    starModalSubtitle: "Support BIR Co-Pilot",
     starModalDescription:
-      "Before you explore the source code repository, please consider giving BIR Co-Pilot a star (★) on GitHub. Your support increases visibility so more Filipino freelancers, remote professionals, employees, and small business owners can access this free, 100% private, and offline-capable tax utility.",
-    starModalRepoDetails: "Next.js 16 • Tailwind CSS v4 • TypeScript • MIT License • Zero Server Telemetry",
-    starModalPrimaryBtn: "Star on GitHub & Proceed",
-    starModalDirectBtn: "Continue directly to GitHub",
+      "If this tool helped you estimate your taxes, please consider leaving a star on GitHub! It helps more Filipinos discover this free project.",
+    starModalRepoDetails: "Next.js • TypeScript • MIT License",
+    starModalPrimaryBtn: "Open GitHub",
+    starModalDirectBtn: "Cancel",
     starModalCancelBtn: "Cancel",
 
     // Primary Taxpayer Selection
@@ -317,14 +317,14 @@ export const translations = {
     themeLight: "Light mode",
     sourceCode: "GitHub",
     sourceCodeLabel: "Source Code",
-    starModalBadge: "Komunidad ng Open Source",
-    starModalTitle: "Suportahan ang BIR Co-Pilot sa GitHub",
-    starModalSubtitle: "Malaking tulong ang bawat star!",
+    starModalBadge: "Open Source",
+    starModalTitle: "Pa-star sa GitHub ⭐",
+    starModalSubtitle: "Suportahan ang BIR Co-Pilot",
     starModalDescription:
-      "Bago ka magtungo sa GitHub repository, lubos naming pasasalamatan kung mabibigyan mo ng star (★) ang BIR Co-Pilot. Ang iyong suporta ay nagpapalakas ng visibility upang mas marami pang Filipino freelancers, remote workers, empleyado, at negosyante ang makagamit ng libre, 100% pribado, at maaasahang tax calculator na ito.",
-    starModalRepoDetails: "Next.js 16 • Tailwind CSS v4 • TypeScript • MIT License • Walang Server Logging",
-    starModalPrimaryBtn: "Mag-star sa GitHub at Magpatuloy",
-    starModalDirectBtn: "Diretso sa GitHub repository",
+      "Kung nakatulong ang calculator na ito sa'yo, pa-star naman sa GitHub! Malaking tulong ito para mas marami pang Pinoy ang makatuklas nito.",
+    starModalRepoDetails: "Next.js • TypeScript • MIT License",
+    starModalPrimaryBtn: "Buksan ang GitHub",
+    starModalDirectBtn: "Kanselahin",
     starModalCancelBtn: "Kanselahin",
 
     // Primary Taxpayer Selection
